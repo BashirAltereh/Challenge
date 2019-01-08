@@ -39,6 +39,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     private databaseClass mdata;
     Button mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
     String msgend;
+
     TextView txtFalse, txtTrue,mTvQuestion;
 
     static Random rand = new Random(); // static li 3adam tikrar ra9m
