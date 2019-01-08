@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<item android:state_pressed="true" android:drawable="@drawable/butun_bb" />-->
+    <!--<item android:drawable="@drawable/butun_b" />-->
+    <item
+        android:state_pressed="true"
+        >
+        <layer-list>
+            <item
+                >
+                <shape android:shape="rectangle">
+                    <stroke android:width="0dp" android:color="#dde4d373" />
+                    <corners android:radius="50dp" />
+                    <solid android:color="#4ed1d1"/>
+                </shape>
+
+            </item>
+
+            <item
+                android:drawable="@drawable/ic_two"
+                android:width="40dp"
+                android:height="40dp"
+                android:gravity="right|center_vertical"
+                android:right="10dp">
+
+            </item>
+
+
+
+
+
+        </layer-list>
+
+    </item>
+
+
+
+    <item>
+        <layer-list>
+            <item
+                >
+                <shape android:shape="rectangle">
+                    <stroke android:width="0dp" android:color="#dde4d373" />
+                    <corners android:radius="50dp" />
+                    <solid android:color="#7d4ed1d1"/>
+                </shape>
+
+            </item>
+
+            <item
+                android:drawable="@drawable/ic_two"
+                android:width="50dp"
+                android:height="50dp"
+                android:gravity="right|center_vertical"
+                android:right="10dp"
+                >
+
+            </item>
+        </layer-list>
+    </item>
+
+</selector>
