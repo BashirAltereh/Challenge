@@ -40,7 +40,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     Button mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
     String msgend;
 
-    TextView txtFalse, txtTrue,mTvQuestion;
+    TextView txtFalse, txtTrue, mTvQuestion;
 
     static Random rand = new Random(); // static li 3adam tikrar ra9m
     int rnd, id, sizeData, count = 20, correctAnswer, point = 3;
@@ -58,6 +58,11 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        init();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    public void init() {
         //////// Start // Ads Admob Interstitial ///////////////
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("code admob");
@@ -71,7 +76,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         });
         //////// End // Ads Admob Interstitial ///////////////
 
-        mTvQuestion =  findViewById(R.id.tv_question);
+        mTvQuestion = findViewById(R.id.tv_question);
         mBtnFistAnswer = findViewById(R.id.btn_first_answer);
         mBtnSecondAnswer = findViewById(R.id.btn_second_answer);
         mBtnThirdAnswer = findViewById(R.id.btn_third_answer);
@@ -82,19 +87,19 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mBtnThirdAnswer.setOnClickListener(this);
         mBtnFourthAnswer.setOnClickListener(this);
 
-        btn6 = (Button) findViewById(R.id.button6);
-        btn7 = (Button) findViewById(R.id.button7);
-        btnTimer = (Button) findViewById(R.id.btnTimer);
+        btn6 = findViewById(R.id.button6);
+        btn7 = findViewById(R.id.button7);
+        btnTimer = findViewById(R.id.btnTimer);
 
-        txtFalse = (TextView) findViewById(R.id.txtFalse);
-        txtTrue = (TextView) findViewById(R.id.txtTrue);
+        txtFalse = findViewById(R.id.txtFalse);
+        txtTrue =  findViewById(R.id.txtTrue);
 
 
         media_true = MediaPlayer.create(this, R.raw.sound_true);
         media_false = MediaPlayer.create(this, R.raw.sound_false_2);
 
 
-        box_vol = (CheckBox) findViewById(R.id.box_vol);
+        box_vol = findViewById(R.id.box_vol);
 
         mdata = new databaseClass(this);
 
@@ -119,9 +124,9 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         sizeData = mDataList.size();
 
         if (rtn) {
-            clear_savechange();
+            clearState();
         } else {
-            LoadSating();
+            loadState();
         }
 
         timer();
@@ -271,6 +276,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
 
     ///////////"إذا كان الجواب صحيح طبق هذه الدالة"/////////////////////////////////////
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void BtnTrue() {
 //        Toast toast = Toast.makeText(this, "صـحيح", Toast.LENGTH_SHORT);
 //        toast.setGravity(Gravity.TOP, 0, 90);
@@ -299,7 +305,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
             builder.show();
             handler.postDelayed(run, 1000);
         } else {
-            SaveSating(); ////"حفظ التغييرات ////////
+            saveState(); ////"حفظ التغييرات ////////
             mDataList.remove(rnd);
             table();
         }
@@ -307,6 +313,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     ///////////////"إذا كان الجواب خطأ طبق هذه الدالة"//////////////////////////////
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void BtnFalse() {
 //        Toast toast = Toast.makeText(this, "خطـأ", Toast.LENGTH_SHORT);
 //        toast.setGravity(Gravity.TOP, 0, 90);
@@ -336,7 +343,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
             handler.postDelayed(run, 1000);
         } else {
             id = -1; /////// هذا الرقم لكي لا يتم تخزين قيمة موجودة لان الجواب خطأ ////////
-            SaveSating(); ////"حفظ التغييرات ////////
+            saveState(); ////"حفظ التغييرات ////////
             table();
         }
 
@@ -349,6 +356,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void run() {
                 BtnTrue();
@@ -362,6 +370,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         }
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void run() {
                 BtnFalse();
@@ -400,7 +409,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     ////////////////////////// "حفظ التغييرات بالبرنامج" //////////////////////////////////
-    public void SaveSating() {
+    public void saveState() {
         SharedPreferences savechange = this.getSharedPreferences("savechange", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = savechange.edit();
 
@@ -414,7 +423,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     ////////////////////////// "جلب التغييرات السابقة للبرنامج"//////////////////////////////////
-    public void LoadSating() {
+    public void loadState() {
         SharedPreferences savechange = this.getSharedPreferences("savechange", Context.MODE_PRIVATE);
 
         String txttrue = savechange.getString("txtTrue", "0");
@@ -449,7 +458,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void clear_savechange() {
+    public void clearState() {
         SharedPreferences savechange = this.getSharedPreferences("savechange", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = savechange.edit();
         editor.clear();
