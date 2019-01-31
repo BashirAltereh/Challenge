@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +32,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.SocketHandler;
 
 public class windows_asila extends AppCompatActivity implements View.OnClickListener {
-
+    private SharedPreferences sharedPreferences;
     private InterstitialAd mInterstitialAd;
     private List<item> mDataList;
     private databaseClass mdata;
@@ -44,9 +46,10 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     static Random rand = new Random(); // static li 3adam tikrar ra9m
     int rnd, id, sizeData, count = 20, correctAnswer, point = 3;
+    private boolean sound;
     Handler handler = new Handler();
     MediaPlayer media_false, media_true;
-    CheckBox box_vol;
+    ImageView mIvSound;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -59,6 +62,14 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         init();
+
+        sharedPreferences = getSharedPreferences("SOUND", MODE_PRIVATE);
+        sound = sharedPreferences.getBoolean("sound", true);
+
+        if (sound)
+            mIvSound.setImageResource(R.drawable.ic_sound);
+        else
+            mIvSound.setImageResource(R.drawable.ic_mute);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -92,14 +103,15 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         btnTimer = findViewById(R.id.btnTimer);
 
         txtFalse = findViewById(R.id.txtFalse);
-        txtTrue =  findViewById(R.id.txtTrue);
+        txtTrue = findViewById(R.id.txtTrue);
 
 
         media_true = MediaPlayer.create(this, R.raw.sound_true);
         media_false = MediaPlayer.create(this, R.raw.sound_false_2);
 
 
-        box_vol = findViewById(R.id.box_vol);
+        mIvSound = findViewById(R.id.iv_sound);
+        mIvSound.setOnClickListener(this);
 
         mdata = new databaseClass(this);
 
@@ -350,7 +362,8 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     public void trueNextQuestion() {
-        if (!box_vol.isChecked()) {
+        sound = sharedPreferences.getBoolean("sound", true);
+        if (sound) {
             media_true.start();
         }
 
@@ -365,7 +378,9 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     public void falseNextQuestion() {
-        if (!box_vol.isChecked()) {
+        sound = sharedPreferences.getBoolean("sound", true);
+
+        if (sound) {
             media_false.start();
         }
         Handler handler = new Handler();
@@ -489,27 +504,29 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View v) {
-        switch (correctAnswer) {
-            case 1:
-                mBtnFistAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_a_true));
-                break;
-            case 2:
-                mBtnSecondAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_b_true));
-                break;
-            case 3:
-                mBtnThirdAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_c_true));
-                break;
-            case 4:
-                mBtnFourthAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_d_true));
-                break;
+        int id = v.getId();
+        if (id != R.id.iv_sound) {
+            switch (correctAnswer) {
+                case 1:
+                    mBtnFistAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_a_true));
+                    break;
+                case 2:
+                    mBtnSecondAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_b_true));
+                    break;
+                case 3:
+                    mBtnThirdAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_c_true));
+                    break;
+                case 4:
+                    mBtnFourthAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_d_true));
+                    break;
+            }
+
+            mBtnFistAnswer.setEnabled(false);
+            mBtnSecondAnswer.setEnabled(false);
+            mBtnThirdAnswer.setEnabled(false);
+            mBtnFourthAnswer.setEnabled(false);
         }
 
-        mBtnFistAnswer.setEnabled(false);
-        mBtnSecondAnswer.setEnabled(false);
-        mBtnThirdAnswer.setEnabled(false);
-        mBtnFourthAnswer.setEnabled(false);
-
-        int id = v.getId();
         switch (id) {
             case R.id.btn_first_answer:
                 if (correctAnswer == 1) {
@@ -554,6 +571,17 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
                     falseNextQuestion();
                 }
 
+                break;
+
+            case R.id.iv_sound:
+                sound = sharedPreferences.getBoolean("sound", true);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("sound", !sound);
+                editor.apply();
+                if (sound)
+                    mIvSound.setImageResource(R.drawable.ic_mute);
+                else
+                    mIvSound.setImageResource(R.drawable.ic_sound);
                 break;
 
         }
