@@ -8,18 +8,7 @@
     android:background="@drawable/backrand_a"
     tools:context="com.is2all.challenge.windows_asila">
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        tools:layout_editor_absoluteX="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp">
-    </com.google.android.gms.ads.AdView>
+
 
     <Button
         android:id="@+id/button10"

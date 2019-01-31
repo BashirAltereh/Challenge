@@ -20,10 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -33,7 +29,6 @@ import java.util.Random;
 
 public class windows_asila extends AppCompatActivity implements View.OnClickListener {
     private SharedPreferences sharedPreferences;
-    private InterstitialAd mInterstitialAd;
     private List<item> mDataList;
     private databaseClass mdata;
     Button mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
@@ -71,18 +66,6 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void init() {
-        //////// Start // Ads Admob Interstitial ///////////////
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("code admob");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                timer();
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });
-        //////// End // Ads Admob Interstitial ///////////////
 
         mTvQuestion = findViewById(R.id.tv_question);
         mBtnFistAnswer = findViewById(R.id.btn_first_answer);
@@ -257,10 +240,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
         correctAnswer = mDataList.get(rnd).ID_answer;
         timer();
-        if (mInterstitialAd.isLoaded() & rnd == 2 || rnd == 4 || rnd == 8 || rnd == 16 || rnd == 32 || rnd == 64 || rnd == 128) {
-            handler.removeCallbacks(run);
-            mInterstitialAd.show();
-        }
+
     }
 
     private boolean copyDatabase(Context context) {
@@ -480,9 +460,6 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onPause() {
         super.onPause();
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
 
     }
 

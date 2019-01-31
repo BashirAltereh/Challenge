@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "194709617547",
+    "firebase_url": "https://challengegame-2b094.firebaseio.com",
+    "project_id": "challengegame-2b094",
+    "storage_bucket": "challengegame-2b094.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194709617547:android:b81fda743071894b",
+        "android_client_info": {
+          "package_name": "com.is2all.challenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194709617547-mqhjhstomeksks1da0blitpa8pogdrtc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbVDGYZRbHaWfOLRt0BhxfAFH121pIYyE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
