@@ -1,4 +1,4 @@
-package com.is2all.as2ila_jawab;
+package com.is2all.challenge;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -13,11 +13,9 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +30,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.SocketHandler;
 
 public class windows_asila extends AppCompatActivity implements View.OnClickListener {
     private SharedPreferences sharedPreferences;

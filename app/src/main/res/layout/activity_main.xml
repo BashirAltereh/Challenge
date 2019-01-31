@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backrand_a"
-    tools:context="com.is2all.as2ila_jawab.windows_asila">
+    tools:context="com.is2all.challenge.windows_asila">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

@@ -1,4 +1,4 @@
-package com.is2all.as2ila_jawab;
+package com.is2all.challenge;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,12 +11,12 @@ import java.util.List;
 public class databaseClass extends SQLiteOpenHelper {
 
     public static final String DBNAME = "databaseList.db";
-    public static final String DBLOCATION = "/data/data/com.is2all.as2ila_jawab/databases/";
+    public static final String DBLOCATION = "/data/data/com.is2all.challenge/databases/";
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
     public databaseClass(Context context) {
-        super(context, DBNAME, null, 1);
+        super(context, DBNAME, null, 2);
         this.mContext = context;
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backrand_a"
-    tools:context="com.is2all.as2ila_jawab.addPoint">
+    tools:context="com.is2all.challenge.addPoint">
 
     <LinearLayout
         android:layout_width="0dp"
