@@ -1,4 +1,4 @@
-package com.is2all.challenge;
+package com.is2all.challenges;
 
 public class item {
 

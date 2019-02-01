@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:194709617547:android:b81fda743071894b",
+        "mobilesdk_app_id": "1:194709617547:android:631f3a7f82c52634",
         "android_client_info": {
-          "package_name": "com.is2all.challenge"
+          "package_name": "com.is2all.challenges"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "194709617547-nntotfmo1omnitnbeakaru7in9qv83e8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.is2all.challenges",
+            "certificate_hash": "4f58698de35da840c8bdfc66bc8764cd85f20d21"
+          }
+        },
         {
           "client_id": "194709617547-mqhjhstomeksks1da0blitpa8pogdrtc.apps.googleusercontent.com",
           "client_type": 3
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194709617547-mqhjhstomeksks1da0blitpa8pogdrtc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

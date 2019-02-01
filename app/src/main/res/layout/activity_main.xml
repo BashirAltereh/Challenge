@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backrand_a"
-    tools:context="com.is2all.challenge.windows_asila">
+    tools:context="com.is2all.challenges.windows_asila">
 
 
 
@@ -70,7 +70,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/about_menu"
-        android:onClick="about"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

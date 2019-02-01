@@ -1,4 +1,4 @@
-package com.is2all.challenge;
+package com.is2all.challenges;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;

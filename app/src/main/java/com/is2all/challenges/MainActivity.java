@@ -1,13 +1,20 @@
-package com.is2all.challenge;
+package com.is2all.challenges;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +27,25 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        @SuppressLint("StringFormatInvalid") String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d(TAG, msg);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 
@@ -63,19 +89,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(myintent, "مشاركة البرنامج"));
     }
 
-    public void about(View view) {
-        MediaPlayer media5 = MediaPlayer.create(this, R.raw.sound_click);
-        media5.start();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("حول البرنامج");
-        builder.setMessage("إصدار البرنامج v1.0   \n  التطبيق بالكامل من إنجاز محمد الحيرش    \n " +
-                "إذا كنت تريد اي استفسار أو تغييرات بالتطبيق ، أو تريد مراسلتي فلا تتردد في الاتصال بي عن طريق البريد الالكتروني: \n " +
-                "medsikb@gmail.com");
-        builder.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-        builder.show();
-    }
 }
