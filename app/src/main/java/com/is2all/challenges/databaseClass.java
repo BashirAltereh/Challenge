@@ -11,7 +11,7 @@ import java.util.List;
 public class databaseClass extends SQLiteOpenHelper {
 
     public static final String DBNAME = "databaseList.db";
-    public static final String DBLOCATION = "/data/data/com.is2all.challenge/databases/";
+    public static final String DBLOCATION = "/data/data/com.is2all.challenges/databases/";
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
