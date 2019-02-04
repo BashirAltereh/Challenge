@@ -1,25 +1,23 @@
 package com.is2all.challenges;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
-
+    private View mVPlayOffline,mVPlayWithFirends;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,35 +25,36 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
+        mVPlayOffline = findViewById(R.id.v_play_offline);
+        mVPlayWithFirends = findViewById(R.id.v_play_with_friends);
+        mVPlayOffline.setOnClickListener(this);
+        mVPlayWithFirends.setOnClickListener(this);
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
-
-                        // Get new Instance ID token
-                        String token = task.getResult().getToken();
-
-                        // Log and toast
-                        @SuppressLint("StringFormatInvalid") String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d(TAG, msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "getInstanceId failed", task.getException());
+//                            return;
+//                        }
+//
+//                        // Get new Instance ID token
+//                        String token = task.getResult().getToken();
+//
+//                        // Log and toast
+//                        @SuppressLint("StringFormatInvalid") String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
     }
 
-    public void start(View view) {
-        MediaPlayer media1 = MediaPlayer.create(this, R.raw.sound_click);
-        media1.start();
-
-        Intent windows_asila = new Intent(this, windows_asila.class);
-        windows_asila.putExtra("rtn", false);
-        startActivity(windows_asila);
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public void returen(View view) {
@@ -89,4 +88,56 @@ public class MainActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(myintent, "مشاركة البرنامج"));
     }
 
+
+
+
+
+    private boolean isAnonymous() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        return currentUser == null || currentUser.isAnonymous();
+    }
+
+    private boolean arePlayServicesOk() {
+        final GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
+        final int resultCode = googleAPI.isGooglePlayServicesAvailable(this);
+
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (googleAPI.isUserResolvableError(resultCode)) {
+                googleAPI.getErrorDialog(this, resultCode, 5000).show();
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.v_play_offline:
+                MediaPlayer media1 = MediaPlayer.create(this, R.raw.sound_click);
+                media1.start();
+
+                Intent windows_asila = new Intent(this, windows_asila.class);
+                windows_asila.putExtra("rtn", false);
+                startActivity(windows_asila);
+                break;
+
+            case R.id.v_play_with_friends:
+                if (!arePlayServicesOk()) {
+                    Toast.makeText(this,"arePlayServices not Ok",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(isAnonymous()){
+                    Toast.makeText(this,"Anonymous",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(this,"Ok",Toast.LENGTH_SHORT).show();
+
+                }
+
+                break;
+        }
+    }
 }

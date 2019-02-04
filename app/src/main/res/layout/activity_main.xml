@@ -5,84 +5,114 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backrand_a"
+    android:background="@color/light_gray"
     tools:context="com.is2all.challenges.windows_asila">
 
 
 
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:background="@drawable/logo_a"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button19" />
+    <!--<Button-->
+        <!--android:id="@+id/button10"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/logo_a"-->
+        <!--app:layout_constraintHorizontal_bias="0.507"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/button19" />-->
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="225dp"
-        android:layout_marginBottom="69dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
         android:orientation="vertical"
         android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button10">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="180dp"
+        <FrameLayout
+            android:id="@+id/v_play_offline"
+            android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:background="@drawable/change_btn_start"
-            android:onClick="start" />
+            android:background="@drawable/menu_background"
+            android:layout_margin="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Play offline"
+                android:textSize="24sp"
+                android:textColor="#1e0000"
+                />
 
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="180dp"
-            android:layout_height="75dp"
-            android:background="@drawable/change_btn_returne"
-            android:onClick="returen"
-            android:textAlignment="center" />
+        </FrameLayout>
 
-        <Button
-            android:id="@+id/button14"
-            android:layout_width="180dp"
+        <FrameLayout
+            android:id="@+id/v_play_with_friends"
+            android:layout_width="match_parent"
             android:layout_height="75dp"
-            android:background="@drawable/change_start_addpoint"
-            android:onClick="addpoint" />
+            android:layout_margin="10dp"
+            android:background="@drawable/menu_background"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Play with friends"
+                android:textSize="24sp"
+                android:textColor="#1e0000"
+                />
+
+        </FrameLayout>
+
+
+        <!--<Button-->
+            <!--android:id="@+id/button13"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="75dp"-->
+            <!--android:background="@drawable/change_btn_returne"-->
+            <!--android:onClick="returen"-->
+            <!--android:textAlignment="center" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button14"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="75dp"-->
+            <!--android:background="@drawable/change_start_addpoint"-->
+            <!--android:onClick="addpoint" />-->
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button19"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/about_menu"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/button19"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:background="@drawable/about_menu"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/button20"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/share_menu"
-        android:onClick="Share"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/button20"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:background="@drawable/share_menu"-->
+        <!--android:onClick="Share"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 </android.support.constraint.ConstraintLayout>
