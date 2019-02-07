@@ -3,4 +3,6 @@
     <string name="app_name">Challenge</string>
     <string name="banner_ad_unit_id">code admob Banner</string>
     <string name="msg_token_fmt">Message</string>
+    <string name="facebook_app_id">801520253539954</string>
+    <string name="fb_login_protocol_scheme">fb801520253539954</string>
 </resources>
