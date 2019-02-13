@@ -1,8 +1,14 @@
 package com.is2all.challenges.Helper;
 
+import android.app.Activity;
+import android.util.DisplayMetrics;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
+import com.is2all.challenges.models.Dimention;
+import com.is2all.challenges.models.User;
 
 public class Utils {
     public static void savePushToken(String refreshedToken, String userId) {
@@ -19,5 +25,22 @@ public class Utils {
         } else {
             return currentUser.getUid();
         }
+    }
+    public static String convertToJSon(User user){
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        return json;
+    }
+    public static User convertToObject(String s){
+        Gson gson = new Gson();
+        User user = gson.fromJson(s, User.class);
+        return user;
+    }
+    public static Dimention getDimention(Activity activity){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        return new Dimention(height,width);
     }
 }
