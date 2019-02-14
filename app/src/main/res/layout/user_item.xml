@@ -7,7 +7,7 @@
     android:padding="10dp"
     android:layout_margin="5dp"
     >
-    <ImageView
+    <com.is2all.challenges.Helper.CircleImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/iv_user_icon"
