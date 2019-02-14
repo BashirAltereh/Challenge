@@ -1,5 +1,6 @@
-package com.is2all.challenges;
+package com.is2all.challenges.Activities;
 
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -22,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.is2all.challenges.Helper.Utils;
 import com.is2all.challenges.Helper.ViewMode;
+import com.is2all.challenges.OnInviteListener;
+import com.is2all.challenges.R;
 import com.is2all.challenges.adapters.UserAdapter;
 import com.is2all.challenges.models.User;
 
@@ -57,12 +60,15 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
         toolbar.setTitle("Users that you can play with");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white),PorterDuff.Mode.SRC_ATOP);
         mRvList = findViewById(R.id.rv_list);
         mData = findViewById(R.id.v_data);
         mProgress = findViewById(R.id.progress_bar);
         mErrorHolder = findViewById(R.id.root_error);
         mTvError = findViewById(R.id.tv_error);
         mBtnRetry = findViewById(R.id.btn_retry);
+
 
 //        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
 //        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));

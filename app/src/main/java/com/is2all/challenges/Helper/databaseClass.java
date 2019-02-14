@@ -1,9 +1,11 @@
-package com.is2all.challenges;
+package com.is2all.challenges.Helper;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.is2all.challenges.models.item;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.is2all.challenges.GAME;
+import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
 import com.is2all.challenges.OnstartGame;
 import com.is2all.challenges.R;

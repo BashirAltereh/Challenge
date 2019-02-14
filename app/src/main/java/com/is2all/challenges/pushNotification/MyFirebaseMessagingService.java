@@ -13,7 +13,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.is2all.challenges.MainActivity;
+import com.is2all.challenges.Activities.MainActivity;
 import com.is2all.challenges.R;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {

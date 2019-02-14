@@ -1,6 +1,8 @@
 package com.is2all.challenges.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,22 +24,23 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<User> users;
     private OnInviteListener onInviteListener;
 
-    public UserAdapter(Context context , ArrayList<User> users , OnInviteListener onInviteListener){
+    public UserAdapter(Context context, ArrayList<User> users, OnInviteListener onInviteListener) {
         this.context = context;
         this.users = users;
         this.onInviteListener = onInviteListener;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.user_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user_item, parent, false);
         return new Holder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-          Holder viewHolder = (Holder) holder;
-          viewHolder.setData(users.get(position));
+        Holder viewHolder = (Holder) holder;
+        viewHolder.setData(users.get(position));
     }
 
     @Override
@@ -46,9 +49,8 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
 
-
-    public class Holder extends RecyclerView.ViewHolder{
-        private TextView mTvUserName,mTvEmail;
+    public class Holder extends RecyclerView.ViewHolder {
+        private TextView mTvUserName, mTvEmail;
         private Button mBtnInvite;
         private CircleImageView mIvUserPhoto;
 
@@ -60,19 +62,32 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mIvUserPhoto = itemView.findViewById(R.id.iv_user_icon);
         }
 
-        public void setData(final User user){
-          mTvEmail.setText(user.getEmail());
-          mTvUserName.setText(user.getName());
-          mBtnInvite.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  onInviteListener.onUserInviteListner(user);
-              }
-          });
-          String id = user.getId();
-          String url = "https://graph.facebook.com/"+id+"/picture?type=large";  //API form facebook to get user's photo
-            Picasso.get().load(url).into(mIvUserPhoto);
+        public void setData(final User user) {
+            mTvEmail.setText(user.getEmail());
+            mTvUserName.setText(user.getName());
+            mBtnInvite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onInviteListener.onUserInviteListner(user);
+                }
+            });
+            String id = user.getId();
+            final String url = "https://graph.facebook.com/" + id + "/picture?type=large";  //API form facebook to get user's photo
+            Picasso.get().load(url).error(R.drawable.ic_profile_male).into(mIvUserPhoto);
 
+            mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        Intent intentGallery = new Intent(Intent.ACTION_VIEW);
+                        intentGallery.setDataAndType(Uri.parse(url), "image/*");
+                        context.startActivity(Intent.createChooser(intentGallery, "Open [App] images"));
+                    }
+                    catch (Exception e){
+
+                    }
+                }
+            });
         }
     }
 }

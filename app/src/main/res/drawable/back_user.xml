@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape android:shape="rectangle" android:padding="10dp">
+            <corners
+                android:topRightRadius="10dp"
+                android:bottomRightRadius="10dp"
+                android:bottomLeftRadius="40dp"
+                android:topLeftRadius="40dp"
+                />
+            <solid
+                android:color="@color/blue"
+                />
+        </shape>
+    </item>
+    <!--<item android:drawable="@drawable/frag_question"-->
+    <!--android:bottom="20dp"-->
+    <!--android:left="20dp"-->
+    <!--android:right="20dp"-->
+    <!--android:top="20dp"-->
+    <!--/>-->
+</layer-list>

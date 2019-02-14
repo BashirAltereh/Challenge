@@ -1,4 +1,4 @@
-package com.is2all.challenges;
+package com.is2all.challenges.Activities;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -19,6 +19,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.is2all.challenges.R;
+import com.is2all.challenges.addPoint;
+import com.is2all.challenges.Helper.databaseClass;
+import com.is2all.challenges.models.item;
 
 import java.io.File;
 import java.io.FileOutputStream;

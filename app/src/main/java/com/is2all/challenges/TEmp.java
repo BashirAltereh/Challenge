@@ -43,6 +43,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.is2all.challenges.Activities.UsersList;
+import com.is2all.challenges.Activities.windows_asila;
 import com.is2all.challenges.Helper.Utils;
 import com.is2all.challenges.models.User;
 
@@ -218,7 +220,7 @@ public class TEmp extends AppCompatActivity implements View.OnClickListener {
         MediaPlayer media2 = MediaPlayer.create(this, R.raw.sound_click);
         media2.start();
 
-        Intent windows_asila = new Intent(this, windows_asila.class);
+        Intent windows_asila = new Intent(this, com.is2all.challenges.Activities.windows_asila.class);
         windows_asila.putExtra("rtn", true);
         startActivity(windows_asila);
     }

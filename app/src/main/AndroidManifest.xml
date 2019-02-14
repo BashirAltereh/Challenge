@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".windows_asila"
+            android:name=".Activities.windows_asila"
             android:screenOrientation="portrait" />
         <activity
             android:name=".addPoint"
@@ -84,7 +84,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".UsersList"></activity>
+        <activity android:name=".Activities.UsersList"></activity>
     </application>
 
 </manifest>
