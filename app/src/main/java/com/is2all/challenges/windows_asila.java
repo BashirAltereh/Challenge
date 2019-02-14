@@ -31,7 +31,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     private SharedPreferences sharedPreferences;
     private List<item> mDataList;
     private databaseClass mdata;
-    Button mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
+    private Button mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
     String msgend;
 
     TextView txtFalse, txtTrue, mTvQuestion;
@@ -62,6 +62,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
             mIvSound.setImageResource(R.drawable.ic_sound);
         else
             mIvSound.setImageResource(R.drawable.ic_mute);
+        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -559,5 +560,29 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
                 break;
 
         }
+    }
+
+    boolean b = false;
+
+    @Override
+    public void onBackPressed() {
+        if (b) {
+            b = false;
+            super.onBackPressed();
+        } else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle(getString(R.string.exit_con));
+            dialog.setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    b = true;
+                    onBackPressed();
+                }
+            });
+            dialog.setNegativeButton("Cancel", null);
+            dialog.create().show();
+        }
+
+
     }
 }

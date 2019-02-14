@@ -5,8 +5,10 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
-    tools:context="com.is2all.challenges.windows_asila">
+    android:background="@drawable/back_question"
+    tools:context="com.is2all.challenges.windows_asila"
+
+    >
 
 
 
@@ -28,8 +30,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         >
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:id="@+id/iv_logo"
         android:src="@drawable/ic_ques"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +43,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="225dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
@@ -90,6 +92,8 @@
                 />
 
         </FrameLayout>
+
+
 
 
         <!--<Button-->
