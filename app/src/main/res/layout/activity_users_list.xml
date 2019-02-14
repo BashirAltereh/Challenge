@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
+    android:background="@drawable/back_question"
     tools:context=".Activities.UsersList">
 
     <android.support.v7.widget.Toolbar
@@ -47,5 +47,6 @@
 
     <include
         layout="@layout/error_layout"
+
         />
 </android.support.constraint.ConstraintLayout>

@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.is2all.challenges.Helper.CircleImageView;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.is2all.challenges.OnInviteListener;
 import com.is2all.challenges.R;
 import com.is2all.challenges.models.User;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,8 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.context = context;
         this.users = users;
         this.onInviteListener = onInviteListener;
+        Fresco.initialize(context);
+
     }
 
     @NonNull
@@ -52,7 +54,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class Holder extends RecyclerView.ViewHolder {
         private TextView mTvUserName, mTvEmail;
         private Button mBtnInvite;
-        private CircleImageView mIvUserPhoto;
+        private SimpleDraweeView mIvUserPhoto;
 
         public Holder(View itemView) {
             super(itemView);
@@ -73,8 +75,8 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
             String id = user.getId();
             final String url = "https://graph.facebook.com/" + id + "/picture?type=large";  //API form facebook to get user's photo
-            Picasso.get().load(url).error(R.drawable.ic_profile_male).into(mIvUserPhoto);
-
+//            Picasso.get().load(url).error(R.drawable.ic_profile_male).into(mIvUserPhoto);
+            mIvUserPhoto.setImageURI(url);
             mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

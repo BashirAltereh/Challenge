@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:layout_marginBottom="5dp"
@@ -58,13 +59,20 @@
         android:layout_height="wrap_content" />
 
     </android.support.constraint.ConstraintLayout>
-    <com.is2all.challenges.Helper.CircleImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/iv_user_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_profile_male"
+        app:placeholderImage="@drawable/ic_user"
+        app:roundedCornerRadius="50dp"
+        app:roundAsCircle="true"
+        app:roundBottomStart="false"
+        app:roundBottomEnd="false"
+        app:roundingBorderWidth="3dp"
+        app:roundingBorderColor="@color/white"
+
         />
 </android.support.constraint.ConstraintLayout>
