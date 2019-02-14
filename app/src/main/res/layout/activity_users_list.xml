@@ -28,7 +28,9 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutAnimation="@anim/layout_slide_right"
         android:id="@+id/rv_list"
+
 
         />
     </android.support.constraint.ConstraintLayout>

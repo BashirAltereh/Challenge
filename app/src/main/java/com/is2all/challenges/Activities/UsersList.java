@@ -38,7 +38,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UsersList extends AppCompatActivity implements OnInviteListener {
-    private RecyclerView mRvList;
+    private static RecyclerView mRvList;
     private UserAdapter adapter;
     private Toolbar toolbar;
     private View mData;
@@ -91,6 +91,8 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
         adapter = new UserAdapter(this, users, this);
         mRvList.setLayoutManager(new LinearLayoutManager(this));
         mRvList.setAdapter(adapter);
+//        RecyclerViewAnimation.runLayoutAnimation(mRvList);
+
         showView(ViewMode.DATA);
     }
 
