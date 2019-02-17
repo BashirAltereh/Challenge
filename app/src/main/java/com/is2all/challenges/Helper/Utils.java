@@ -10,6 +10,9 @@ import com.google.gson.Gson;
 import com.is2all.challenges.models.Dimention;
 import com.is2all.challenges.models.User;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Utils {
     public static void savePushToken(String refreshedToken, String userId) {
         FirebaseDatabase.getInstance().getReference().child("users")
@@ -42,5 +45,11 @@ public class Utils {
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
         return new Dimention(height,width);
+    }
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

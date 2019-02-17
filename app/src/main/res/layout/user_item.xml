@@ -66,13 +66,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:placeholderImage="@drawable/ic_user"
         app:roundedCornerRadius="50dp"
         app:roundAsCircle="true"
         app:roundBottomStart="false"
         app:roundBottomEnd="false"
         app:roundingBorderWidth="3dp"
         app:roundingBorderColor="@color/white"
+        app:placeholderImage="@drawable/ic_user"
 
         />
 </android.support.constraint.ConstraintLayout>

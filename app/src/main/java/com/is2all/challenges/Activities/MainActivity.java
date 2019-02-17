@@ -50,9 +50,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
+import com.is2all.challenges.OnGetEmail;
 import com.is2all.challenges.OnstartGame;
 import com.is2all.challenges.R;
 import com.is2all.challenges.addPoint;
+import com.is2all.challenges.fragments.DialogEmail;
 import com.is2all.challenges.fragments.customFragment;
 import com.is2all.challenges.models.User;
 
@@ -65,7 +67,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener , OnstartGame {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener , OnstartGame , OnGetEmail {
     private static final String TAG = "MainActivity__";
     private static final String EMAIL = "email";
     private static final String USER_FIREDS = "user_friends";
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference myRef;
 
     private customFragment framgent;
+    private DialogEmail dialogEmail;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -477,8 +480,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.d("LoginActivity_", response.toString());
-                        if (object == null)
+                        if (object == null) {
+                            Toast.makeText(getApplicationContext(), "Can't get your account, please try again", Toast.LENGTH_SHORT).show();
                             return;
+                        }
                         // Application code
                         try {
                             userID = object.getString("id");
@@ -491,7 +496,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             e.printStackTrace();
                         }
                         try {
-                            email = object.getString("email");
+                            String temp = object.getString("email");
+                            if(temp != null && temp.equals("null"))
+                                email = temp;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -586,6 +593,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void createUser(final String id, final String name, final String email) {
         Log.d("createUser_", "id: " + id + " , name: " + name + " , email: " + email);
+        if(email == null || name == null){
+            Toast.makeText(this, "Problem in your email", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mAuth.createUserWithEmailAndPassword(email, id)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -655,7 +666,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
         firebaseAuth.addAuthStateListener(firebaseAuthListner);
-
     }
 
 
@@ -688,6 +698,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         Gson gson = new Gson();
         final User user = gson.fromJson(tUser, User.class);
+        if(user.getEmail() == null || user.getName() == null){
+            Toast.makeText(this, "Problem in your email", Toast.LENGTH_SHORT).show();
+            dialogEmail = new DialogEmail(this,this,this);
+
+            dialogEmail.setCancelable(false);
+            dialogEmail.show(getSupportFragmentManager(),TAG);
+            return;
+        }
         mAuth.signInWithEmailAndPassword(user.getEmail(), user.getId())
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -731,5 +749,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(windows_asila);
             framgent.dismiss();
         }
+    }
+
+    @Override
+    public void onGetEmailListner(String tEmail) {
+        Toast.makeText(this,"Fsdf",Toast.LENGTH_SHORT).show();
+        final String tUser = sharedPreferences.getString("user", "null");
+        if (tUser.equals("null"))
+            return;
+        Gson gson = new Gson();
+        User user = gson.fromJson(tUser, User.class);
+        user.setEmail(email);
+        editor.putString("user", Utils.convertToJSon(new User(tEmail,user.getName(),user.getId(),"")));
+        editor.commit();
+        createUser(user.getId(),user.getName(),tEmail);
+        dialogEmail.dismiss();
+
     }
 }

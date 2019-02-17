@@ -7,4 +7,7 @@
     <string name="fb_login_protocol_scheme">fb801520253539954</string>
     <string name="exit_con">Exit confirmation </string>
     <string name="exit">Exit</string>
+    <string name="request_email">Problem occur when get your email kindly enter your email</string>
+    <string name="ok">OK</string>
+    <string name="not_valid_email">Please enter a valid email</string>
 </resources>

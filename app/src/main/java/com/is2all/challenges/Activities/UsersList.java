@@ -69,6 +69,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
         mTvError = findViewById(R.id.tv_error);
         mBtnRetry = findViewById(R.id.btn_retry);
 
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_out_down);
 
 //        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
 //        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
@@ -199,13 +200,13 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
-                                Log.d("result_","failure: "+e.getMessage());
+                                Log.d("resultt_","failure: "+e.getMessage());
 
                             }
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
-                                Log.d("result_","response: "+response.message());
+                                Log.d("resultt_","response: "+response.message());
                             }
                         });
 
@@ -213,7 +214,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.d("result_","error: "+databaseError.getMessage());
+                        Log.d("resultt_","error: "+databaseError.getMessage());
 
                     }
                 });

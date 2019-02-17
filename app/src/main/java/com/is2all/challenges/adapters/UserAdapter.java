@@ -6,10 +6,12 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -77,6 +79,15 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             final String url = "https://graph.facebook.com/" + id + "/picture?type=large";  //API form facebook to get user's photo
 //            Picasso.get().load(url).error(R.drawable.ic_profile_male).into(mIvUserPhoto);
             mIvUserPhoto.setImageURI(url);
+
+            mIvUserPhoto.setOnHoverListener(new View.OnHoverListener() {
+                @Override
+                public boolean onHover(View v, MotionEvent event) {
+                    Toast.makeText(context,"fdsf",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
+
             mIvUserPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
