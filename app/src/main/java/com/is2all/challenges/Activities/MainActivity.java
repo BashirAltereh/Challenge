@@ -64,10 +64,9 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener , OnStartGame, OnGetEmail {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStartGame, OnGetEmail {
     private static final String TAG = "MainActivity__";
     private static final String EMAIL = "email";
     private static final String USER_FIREDS = "user_friends";
@@ -75,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String ID, userID;
     private boolean isLoggedIn;
 
-    private View mVPlayOffline, mVPlayWithFirends,mView;
-    private ImageView mIvLOGO;
+    private View mVPlayOffline, mVPlayWithFirends, mView;
+    private ImageView mIvLOGO, mIvClick;
     private LoginButton mBtnLogIn;
     private FirebaseAuth mAuth;
     private CallbackManager callbackManager;
@@ -200,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnLogIn = findViewById(R.id.login_button);
         mView = findViewById(R.id.linearLayout);
         mIvLOGO = findViewById(R.id.iv_logo);
+        mIvClick = findViewById(R.id.iv_click);
         mBtnLogIn.setOnClickListener(this);
         mVPlayOffline.setOnClickListener(this);
         mVPlayWithFirends.setOnClickListener(this);
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mView.setVisibility(View.GONE);
         final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.scale);
-        final Animation move = AnimationUtils.loadAnimation(this,R.anim.move);
+        final Animation move = AnimationUtils.loadAnimation(this, R.anim.move);
 
 
         Handler handler = new Handler();
@@ -224,14 +224,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mView.setVisibility(View.VISIBLE);
                     mView.startAnimation(slideUp);
                     mIvLOGO.startAnimation(move);
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mBtnLogIn.getText().toString().contains("Facebook"))
+                                showClickForFacebook();
+                        }
+                    }, 700);
                 }
             }
-        },500);
+        }, 500);
 
 
         callbackManager = CallbackManager.Factory.create();
-        mBtnLogIn.setReadPermissions(EMAIL,"public_profile","user_friends");
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(EMAIL,"public_profile","user_friends"));
+        mBtnLogIn.setReadPermissions(EMAIL, "public_profile", "user_friends");
 
     }
 
@@ -240,10 +247,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         firebaseAuth.addAuthStateListener(firebaseAuthListner);
         String s = sharedPreferences.getString("user", "null");
-        Log.d("ONSTART_","user: "+s);
+        Log.d("ONSTART_", "user: " + s);
         if (!s.equals("null")) {
             User user = Utils.convertToObject(s);
-            createUser(user.getId(),user.getName(),user.getEmail());
+            createUser(user.getId(), user.getName(), user.getEmail());
         }
         signInUser();
 
@@ -254,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStop();
 //        firebaseAuth.removeAuthStateListener(firebaseAuthListner);
 //        firebaseAuth.signOut();
-        Log.d("onStop_","onStop");
+        Log.d("onStop_", "onStop");
     }
 
     public void returen(View view) {
@@ -313,30 +320,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
 
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("FacebookAccessToken_", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Authentication done.",
-                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-                            Log.d("FacebookAccessToken_", "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-                        }
-
-                        // ...
+//        mAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//                            Log.d("FacebookAccessToken_", "signInWithCredential:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            Toast.makeText(getApplicationContext(), "Authentication done.",
+//                                    Toast.LENGTH_SHORT).show();
+//                            User tUser = getUserInfo();
+//                            Log.d("FacebookAccessToken_","info: "+Utils.convertToJSon(tUser));
+//                            addUserToDataBase(tUser.getEmail(), tUser.getName(),tUser.getId());
+//
+////                            updateUI(user);
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//
+//                            Log.d("FacebookAccessToken_", "signInWithCredential:failure", task.getException());
+//                            Toast.makeText(getApplicationContext(), "Authentication failed.",
+//                                    Toast.LENGTH_SHORT).show();
+////                            updateUI(null);
+//                        }
+//
+//                        // ...
+//                    }
+//                });
                         getInfo();
-                    }
-                });
     }
 
 
@@ -353,9 +364,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.v_play_offline:
                 MediaPlayer media1 = MediaPlayer.create(this, R.raw.sound_click);
                 media1.start();
-                framgent = new customFragment(this,this,this);
+                framgent = new customFragment(this, this, this);
 
-                framgent.show(getSupportFragmentManager(),TAG);
+                framgent.show(getSupportFragmentManager(), TAG);
 
                 break;
 
@@ -365,8 +376,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return;
                 }
                 if (isAnonymous()) {
-                    Toast.makeText(this, "Anonymous", Toast.LENGTH_SHORT).show();
-                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(EMAIL,"public_profile"));
+                    showClickForFacebook();
+//                    Toast.makeText(this, "Anonymous", Toast.LENGTH_SHORT).show();
+//                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(EMAIL,"public_profile"));
 
                 } else {
                     Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
@@ -387,6 +399,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
                 break;
         }
+    }
+
+    private void showClickForFacebook() {
+        mIvClick.setVisibility(View.VISIBLE);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        mIvClick.startAnimation(animation);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mIvClick.setVisibility(View.GONE);
+            }
+        }, 1000);
     }
 
 
@@ -474,6 +499,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return friendslist;
     }
 
+    public User getUserInfo() {
+        final User user = new User();
+        GraphRequest request = GraphRequest.newMeRequest(
+                AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.d("LoginActivity_", response.toString());
+                        if (object == null) {
+                            Toast.makeText(getApplicationContext(), "Can't get your account, please try again", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        // Application code
+                        try {
+                            user.setId( object.getString("id"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            user.setName(object.getString("name"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            user.setEmail(object.getString("email"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,gender,birthday");
+        request.setParameters(parameters);
+        request.executeAsync();
+        return user;
+    }
+
     public void getInfo() {
         // App code
         GraphRequest request = GraphRequest.newMeRequest(
@@ -499,7 +561,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         try {
                             String temp = object.getString("email");
-                            if(temp != null && !temp.equals("null"))
+                            if (temp != null && !temp.equals("null"))
                                 email = temp;
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -595,7 +657,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void createUser(final String id, final String name, final String email) {
         Log.d("createUser_", "id: " + id + " , name: " + name + " , email: " + email);
-        if(email == null || name == null){
+        if (email == null || name == null) {
             Toast.makeText(this, "Problem in your email", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -626,27 +688,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        startActivity(new Intent(this, UserListActivity.class));
 
                         } else {
-                            Log.d("createUser_", "loginWithEmail: unsuccessful: "+task.getException());
+                            Log.d("createUser_", "loginWithEmail: unsuccessful: " + task.getException());
                             mAuth.signInWithEmailAndPassword(email, id)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()) {
-                                                String uid = mAuth.getCurrentUser().getUid();
-
-                                                User user = new User(email, name, id, uid);
-
-                                                Gson gson = new Gson();
-                                                String json = gson.toJson(user);
-                                                editor.putString("user", json);
-                                                editor.commit();
-
-                                                Log.d("createUser_", "singInWithEmail successfully " + json);
-                                                FirebaseDatabase.getInstance().getReference().child("users").child(uid)
-                                                        .setValue(user);
-
-                                                String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-                                                Utils.savePushToken(refreshedToken, uid);
+                                                addUserToDataBase(email, name, id);
 
                                             }
 
@@ -700,12 +748,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         Gson gson = new Gson();
         final User user = gson.fromJson(tUser, User.class);
-        if(user.getEmail() == null || user.getName() == null){
+        if (user.getEmail() == null || user.getName() == null) {
             Toast.makeText(this, "Problem in your email", Toast.LENGTH_SHORT).show();
-            dialogEmail = new DialogEmail(this,this,this);
+            dialogEmail = new DialogEmail(this, this, this);
 
             dialogEmail.setCancelable(false);
-            dialogEmail.show(getSupportFragmentManager(),TAG);
+            dialogEmail.show(getSupportFragmentManager(), TAG);
             return;
         }
         mAuth.signInWithEmailAndPassword(user.getEmail(), user.getId())
@@ -731,7 +779,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onStartGameListner(GAME game) {
-        if(game == GAME.NEW_GAME){
+        if (game == GAME.NEW_GAME) {
             MediaPlayer media2 = MediaPlayer.create(this, R.raw.sound_click);
             media2.start();
 
@@ -740,8 +788,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(windows_asila);
             framgent.dismiss();
 
-        }
-        else if(game == GAME.RESUME){
+        } else if (game == GAME.RESUME) {
 
             MediaPlayer media2 = MediaPlayer.create(this, R.raw.sound_click);
             media2.start();
@@ -755,17 +802,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onGetEmailListner(String tEmail) {
-        Toast.makeText(this,"Fsdf",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Fsdf", Toast.LENGTH_SHORT).show();
         final String tUser = sharedPreferences.getString("user", "null");
         if (tUser.equals("null"))
             return;
         Gson gson = new Gson();
         User user = gson.fromJson(tUser, User.class);
         user.setEmail(email);
-        editor.putString("user", Utils.convertToJSon(new User(tEmail,user.getName(),user.getId(),"")));
+        editor.putString("user", Utils.convertToJSon(new User(tEmail, user.getName(), user.getId(), "")));
         editor.commit();
-        createUser(user.getId(),user.getName(),tEmail);
+        createUser(user.getId(), user.getName(), tEmail);
         dialogEmail.dismiss();
 
+    }
+
+    private void addUserToDataBase(String email, String name, String id) {
+        String uid = mAuth.getCurrentUser().getUid();
+
+        User user = new User(email, name, id, uid);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        editor.putString("user", json);
+        editor.commit();
+
+        Log.d("createUser_", "singInWithEmail successfully " + json);
+        FirebaseDatabase.getInstance().getReference().child("users").child(uid)
+                .setValue(user);
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Utils.savePushToken(refreshedToken, uid);
     }
 }
