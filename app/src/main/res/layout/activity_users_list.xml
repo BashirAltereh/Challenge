@@ -7,26 +7,28 @@
     android:background="@drawable/back_question"
     android:fitsSystemWindows="true"
     tools:context=".Activities.UsersList">
+
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/app_bar">
+        android:layout_height="wrap_content">
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tool_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:layout_scrollFlags="scroll"
-        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/v_data"
+            app:layout_constraintVertical_chainStyle="spread_inside"
 
-        app:layout_constraintBottom_toTopOf="@id/v_data"
-        app:layout_constraintVertical_chainStyle="spread_inside">
+            app:layout_scrollFlags="scroll"
+            app:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
 
 
-    </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,40 +37,43 @@
         >
 
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/app_bar"
-        android:layout_below="@+id/app_bar"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/v_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/app_bar"
 
-        android:id="@+id/v_data">
+            app:layout_constraintTop_toBottomOf="@id/app_bar">
 
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/refresh_layout"
+                >
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_slide_right"
-        android:id="@+id/rv_list"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutAnimation="@anim/layout_slide_right" />
+            </android.support.v4.widget.SwipeRefreshLayout>
 
+        </android.support.constraint.ConstraintLayout>
 
-        />
-    </android.support.constraint.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/progress_bar_"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:indeterminateDrawable="@drawable/progress_bar_"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <include
-        layout="@layout/error_layout"
-android:visibility="gone"
-        />
+        <include
+            layout="@layout/error_layout"
+            android:visibility="gone" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

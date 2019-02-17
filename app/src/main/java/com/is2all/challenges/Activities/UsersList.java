@@ -4,6 +4,7 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,7 +38,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class UsersList extends AppCompatActivity implements OnInviteListener {
+public class UsersList extends AppCompatActivity implements OnInviteListener , SwipeRefreshLayout.OnRefreshListener {
     private static RecyclerView mRvList;
     private UserAdapter adapter;
     private Toolbar toolbar;
@@ -46,6 +47,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
     private Button mBtnRetry;
     private TextView mTvError;
     private View mErrorHolder;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private ArrayList<User> users = new ArrayList<>();
 
@@ -76,6 +78,8 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
         mErrorHolder = findViewById(R.id.root_error);
         mTvError = findViewById(R.id.tv_error);
         mBtnRetry = findViewById(R.id.btn_retry);
+        swipeRefreshLayout = findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
     }
 
@@ -84,7 +88,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
         mRvList.setLayoutManager(new LinearLayoutManager(this));
         mRvList.setAdapter(adapter);
 //        RecyclerViewAnimation.runLayoutAnimation(mRvList);
-
+        swipeRefreshLayout.setRefreshing(false);
         showView(ViewMode.DATA);
     }
 
@@ -93,6 +97,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
     public void getUsers() {
         showView(ViewMode.PROGRESS);
         isCon = false;
+        users = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child("users")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -210,5 +215,10 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
 
                     }
                 });
+    }
+
+    @Override
+    public void onRefresh() {
+        getUsers();
     }
 }
