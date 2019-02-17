@@ -51,7 +51,7 @@ import com.google.gson.Gson;
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
 import com.is2all.challenges.OnGetEmail;
-import com.is2all.challenges.OnstartGame;
+import com.is2all.challenges.OnStartGame;
 import com.is2all.challenges.R;
 import com.is2all.challenges.addPoint;
 import com.is2all.challenges.fragments.DialogEmail;
@@ -67,7 +67,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener , OnstartGame , OnGetEmail {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener , OnStartGame, OnGetEmail {
     private static final String TAG = "MainActivity__";
     private static final String EMAIL = "email";
     private static final String USER_FIREDS = "user_friends";
@@ -230,7 +230,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         callbackManager = CallbackManager.Factory.create();
-        mBtnLogIn.setReadPermissions(Arrays.asList(EMAIL));
+        mBtnLogIn.setReadPermissions(EMAIL,"public_profile","user_friends");
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(EMAIL,"public_profile","user_friends"));
+
     }
 
     @Override
@@ -364,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 if (isAnonymous()) {
                     Toast.makeText(this, "Anonymous", Toast.LENGTH_SHORT).show();
-                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(EMAIL,"public_profile"));
 
                 } else {
                     Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
@@ -497,7 +499,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         try {
                             String temp = object.getString("email");
-                            if(temp != null && temp.equals("null"))
+                            if(temp != null && !temp.equals("null"))
                                 email = temp;
                         } catch (JSONException e) {
                             e.printStackTrace();

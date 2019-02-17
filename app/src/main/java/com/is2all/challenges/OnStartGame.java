@@ -2,6 +2,6 @@ package com.is2all.challenges;
 
 import com.is2all.challenges.Helper.GAME;
 
-public interface OnstartGame {
+public interface OnStartGame {
     void onStartGameListner(GAME game);
 }

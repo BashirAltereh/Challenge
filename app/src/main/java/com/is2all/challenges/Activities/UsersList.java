@@ -56,35 +56,26 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_list);
+        init();
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_out_down);
+        getUsers();
+
+    }
+
+    public void init() {
+
         toolbar = findViewById(R.id.tool_bar);
-        toolbar.setTitle("Users that you can play with");
+        toolbar.setTitle(R.string.users);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white),PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         mRvList = findViewById(R.id.rv_list);
         mData = findViewById(R.id.v_data);
         mProgress = findViewById(R.id.progress_bar);
         mErrorHolder = findViewById(R.id.root_error);
         mTvError = findViewById(R.id.tv_error);
         mBtnRetry = findViewById(R.id.btn_retry);
-
-        overridePendingTransition(R.anim.slide_up, R.anim.slide_out_down);
-
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        users.add(new User("bashiralterh@gmail.com","bashir","32232542"));
-//        adapter = new UserAdapter(this,users,this);
-//        mRvList.setLayoutManager(new LinearLayoutManager(this));
-//        mRvList.setAdapter(adapter);
-        getUsers();
 
     }
 
@@ -98,6 +89,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
     }
 
     boolean isCon = false;
+
     public void getUsers() {
         showView(ViewMode.PROGRESS);
         isCon = false;
@@ -171,7 +163,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
 
     @Override
     public void onUserInviteListner(final User user) {
-        Toast.makeText(this, "Fdsf: "+user.getName()+" , "+user.getEmail(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Fdsf: " + user.getName() + " , " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
@@ -180,7 +172,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        User me =  dataSnapshot.getValue(User.class);
+                        User me = dataSnapshot.getValue(User.class);
 
                         OkHttpClient client = new OkHttpClient();
 
@@ -200,13 +192,13 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
-                                Log.d("resultt_","failure: "+e.getMessage());
+                                Log.d("resultt_", "failure: " + e.getMessage());
 
                             }
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
-                                Log.d("resultt_","response: "+response.message());
+                                Log.d("resultt_", "response: " + response.message());
                             }
                         });
 
@@ -214,7 +206,7 @@ public class UsersList extends AppCompatActivity implements OnInviteListener {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.d("resultt_","error: "+databaseError.getMessage());
+                        Log.d("resultt_", "error: " + databaseError.getMessage());
 
                     }
                 });

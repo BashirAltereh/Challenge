@@ -10,4 +10,5 @@
     <string name="request_email">Problem occur when get your email kindly enter your email</string>
     <string name="ok">OK</string>
     <string name="not_valid_email">Please enter a valid email</string>
+    <string name="users">Users that you can play with</string>
 </resources>

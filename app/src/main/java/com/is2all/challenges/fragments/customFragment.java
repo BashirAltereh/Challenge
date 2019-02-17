@@ -13,22 +13,22 @@ import android.view.ViewGroup;
 
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
-import com.is2all.challenges.OnstartGame;
+import com.is2all.challenges.OnStartGame;
 import com.is2all.challenges.R;
 import com.is2all.challenges.models.Dimention;
 
 @SuppressLint("ValidFragment")
 public class customFragment extends DialogFragment {
     private View mVCreateNewGame, mVResume;
-    private OnstartGame onstartGame;
+    private OnStartGame onStartGame;
     private Context context;
     private Activity activity;
 
     @SuppressLint("ValidFragment")
-    public customFragment(Context context, Activity activity, OnstartGame onstartGame) {
+    public customFragment(Context context, Activity activity, OnStartGame onStartGame) {
         this.context = context;
         this.activity = activity;
-        this.onstartGame = onstartGame;
+        this.onStartGame = onStartGame;
     }
 
 
@@ -41,14 +41,14 @@ public class customFragment extends DialogFragment {
         mVCreateNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onstartGame.onStartGameListner(GAME.NEW_GAME);
+                onStartGame.onStartGameListner(GAME.NEW_GAME);
 
             }
         });
         mVResume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onstartGame.onStartGameListner(GAME.RESUME);
+                onStartGame.onStartGameListner(GAME.RESUME);
 
             }
         });
