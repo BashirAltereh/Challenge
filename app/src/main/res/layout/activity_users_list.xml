@@ -73,7 +73,7 @@
 
         <include
             layout="@layout/error_layout"
-            android:visibility="gone" />
+            />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,8 @@
 package com.is2all.challenges.Activities;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -38,7 +40,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class UsersList extends AppCompatActivity implements OnInviteListener , SwipeRefreshLayout.OnRefreshListener {
+public class UsersList extends AppCompatActivity implements View.OnClickListener, OnInviteListener, SwipeRefreshLayout.OnRefreshListener {
     private static RecyclerView mRvList;
     private UserAdapter adapter;
     private Toolbar toolbar;
@@ -60,9 +62,9 @@ public class UsersList extends AppCompatActivity implements OnInviteListener , S
         setContentView(R.layout.activity_users_list);
         init();
         overridePendingTransition(R.anim.slide_up, R.anim.slide_out_down);
-        getUsers();
-
+        loadData();
     }
+
 
     public void init() {
 
@@ -80,6 +82,16 @@ public class UsersList extends AppCompatActivity implements OnInviteListener , S
         mBtnRetry = findViewById(R.id.btn_retry);
         swipeRefreshLayout = findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
+        mBtnRetry.setOnClickListener(this);
+
+    }
+
+    public void loadData(){
+        showView(ViewMode.PROGRESS);
+        if (isNetworkConnected())
+            getUsers();
+        else
+            showView(ViewMode.NO_CONNICTION);
 
     }
 
@@ -92,11 +104,8 @@ public class UsersList extends AppCompatActivity implements OnInviteListener , S
         showView(ViewMode.DATA);
     }
 
-    boolean isCon = false;
 
     public void getUsers() {
-        showView(ViewMode.PROGRESS);
-        isCon = false;
         users = new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child("users")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -104,7 +113,6 @@ public class UsersList extends AppCompatActivity implements OnInviteListener , S
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int i = 1;
                         Log.d("getUsers_", dataSnapshot.toString());
-                        isCon = true;
 
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             User user = snapshot.getValue(User.class);
@@ -120,6 +128,14 @@ public class UsersList extends AppCompatActivity implements OnInviteListener , S
                         showView(ViewMode.NO_CONNICTION);
 
                     }
+
+                    @Override
+                    protected void finalize() throws Throwable {
+                        super.finalize();
+                        Log.d("getUsers_", "finalize");
+
+                    }
+
                 });
 
     }
@@ -219,6 +235,22 @@ public class UsersList extends AppCompatActivity implements OnInviteListener , S
 
     @Override
     public void onRefresh() {
-        getUsers();
+        loadData();
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btn_retry:
+                loadData();
+                break;
+        }
     }
 }

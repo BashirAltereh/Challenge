@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         callbackManager = CallbackManager.Factory.create();
-        mBtnLogIn.setReadPermissions(EMAIL, "public_profile", "user_friends");
+        mBtnLogIn.setReadPermissions(EMAIL/*, "public_profile", "user_friends"*/);
 
     }
 
