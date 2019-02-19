@@ -141,10 +141,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT).show();
 
                 } else
-                    Toast.makeText(getApplicationContext(), "null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        // ...
 //                    }
 //                });
-                        getInfo();
+        getInfo();
     }
 
 
@@ -362,6 +362,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.v_play_offline:
+                mVPlayOffline.setClickable(false);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mVPlayOffline.setClickable(true);
+                    }
+                }, 1000);
                 MediaPlayer media1 = MediaPlayer.create(this, R.raw.sound_click);
                 media1.start();
                 framgent = new customFragment(this, this, this);
@@ -513,7 +521,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                         // Application code
                         try {
-                            user.setId( object.getString("id"));
+                            user.setId(object.getString("id"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -686,6 +694,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                                .putExtra("type", "wifi"));
 
 //                        startActivity(new Intent(this, UserListActivity.class));
+                            firebaseAuth.addAuthStateListener(firebaseAuthListner);
 
                         } else {
                             Log.d("createUser_", "loginWithEmail: unsuccessful: " + task.getException());
@@ -712,10 +721,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             Log.d("createUser_", "unknown");
                                         }
                                     });
+                            firebaseAuth.addAuthStateListener(firebaseAuthListner);
                         }
                     }
                 });
-        firebaseAuth.addAuthStateListener(firebaseAuthListner);
     }
 
 
@@ -802,7 +811,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onGetEmailListner(String tEmail) {
-        Toast.makeText(this, "Fsdf", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Fsdf", Toast.LENGTH_SHORT).show();
         final String tUser = sharedPreferences.getString("user", "null");
         if (tUser.equals("null"))
             return;

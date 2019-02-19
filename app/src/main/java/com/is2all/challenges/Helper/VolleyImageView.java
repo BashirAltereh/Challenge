@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
-/**
- * Created by Amir ALMOHAMED at 27-10-2018.
- */
+
 
 public class VolleyImageView extends android.support.v7.widget.AppCompatImageView {
 

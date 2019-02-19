@@ -11,4 +11,6 @@
     <string name="ok">OK</string>
     <string name="not_valid_email">Please enter a valid email</string>
     <string name="users">Users that you can play with</string>
+    <string name="sign_in_successfully">sign in successfully</string>
+    <string name="deos_not_sign_in">does not sign in</string>
 </resources>

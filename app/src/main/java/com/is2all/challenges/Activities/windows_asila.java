@@ -15,14 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.is2all.challenges.Helper.databaseClass;
 import com.is2all.challenges.R;
 import com.is2all.challenges.addPoint;
-import com.is2all.challenges.Helper.databaseClass;
 import com.is2all.challenges.models.item;
 
 import java.io.File;
@@ -36,7 +37,8 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     private SharedPreferences sharedPreferences;
     private List<item> mDataList;
     private databaseClass mdata;
-    private Button mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
+    private TextView mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
+    private ImageView mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour , mIvHint;
     String msgend;
 
     TextView txtFalse, txtTrue, mTvQuestion;
@@ -78,6 +80,15 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mBtnSecondAnswer = findViewById(R.id.btn_second_answer);
         mBtnThirdAnswer = findViewById(R.id.btn_third_answer);
         mBtnFourthAnswer = findViewById(R.id.btn_fourth_answer);
+
+        mIvHintOne = findViewById(R.id.iv_hint_1);
+        mIvHintTwo = findViewById(R.id.iv_hint_2);
+        mIvHintThree = findViewById(R.id.iv_hint_3);
+        mIvHintFour = findViewById(R.id.iv_hint_4);
+
+        mIvHint = findViewById(R.id.iv_hint);
+
+        mIvHint.setOnClickListener(this);
 
         mBtnFistAnswer.setOnClickListener(this);
         mBtnSecondAnswer.setOnClickListener(this);
@@ -150,6 +161,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
             btn6.setText(txtTrue.getText().toString() + "/" + sizeData);
             btn7.setText("+نقط : " + point);
         }
+
     }
 
     //////////////Timer--------------------------
@@ -243,6 +255,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mBtnSecondAnswer.setEnabled(true);
         mBtnThirdAnswer.setEnabled(true);
         mBtnFourthAnswer.setEnabled(true);
+        mIvHint.setEnabled(true);
 
         correctAnswer = mDataList.get(rnd).ID_answer;
         timer();
@@ -485,7 +498,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id != R.id.iv_sound) {
+        if (id != R.id.iv_sound && id != R.id.iv_hint) {
             switch (correctAnswer) {
                 case 1:
                     mBtnFistAnswer.setBackground(getResources().getDrawable(R.drawable.change_btn_a_true));
@@ -505,6 +518,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
             mBtnSecondAnswer.setEnabled(false);
             mBtnThirdAnswer.setEnabled(false);
             mBtnFourthAnswer.setEnabled(false);
+            mIvHint.setEnabled(false);
         }
 
         switch (id) {
@@ -563,7 +577,9 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
                 else
                     mIvSound.setImageResource(R.drawable.ic_sound);
                 break;
-
+            case R.id.iv_hint:
+                showHint(correctAnswer);
+                break;
         }
     }
 
@@ -589,5 +605,23 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         }
 
 
+    }
+    public void showHint(int correctAnswer) throws IndexOutOfBoundsException{
+        final int index = correctAnswer -1;
+        if(index < 0 || index > 3)
+            throw new IndexOutOfBoundsException();
+        else{
+            final ImageView[] hints = new ImageView[]{mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour};
+            hints[index].setVisibility(View.VISIBLE);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+            hints[index].startAnimation(animation);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    hints[index].setVisibility(View.GONE);
+                }
+            }, 1000);
+        }
     }
 }
