@@ -55,6 +55,7 @@ import com.is2all.challenges.OnStartGame;
 import com.is2all.challenges.R;
 import com.is2all.challenges.addPoint;
 import com.is2all.challenges.fragments.DialogEmail;
+import com.is2all.challenges.fragments.DialogVPN;
 import com.is2all.challenges.fragments.customFragment;
 import com.is2all.challenges.models.User;
 
@@ -90,9 +91,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private customFragment framgent;
     private DialogEmail dialogEmail;
+    private DialogVPN dialogVPN;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+
+    private Activity activity;
 
 
     @Override
@@ -137,18 +141,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+        final boolean isSignIn = sharedPreferences.getBoolean("isSignIn", false);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                if (user != null && !isSignIn) {
 //                    Toast.makeText(getApplicationContext(), getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT).show();
-                    Toasty.success(getApplicationContext(),  getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT, true).show();
-
-                } else
+                    Toasty.success(getApplicationContext(), getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT, true).show();
+                    editor.putBoolean("isSignIn", true);
+                    editor.commit();
+                } else if (!isSignIn)
 //                    Toast.makeText(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT).show();
-                    Toasty.warning(getApplicationContext(),  getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT, true).show();
+                    Toasty.warning(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT, true).show();
 
             }
         };
@@ -197,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void init() {
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        activity = this;
 
         mAuth = FirebaseAuth.getInstance();
         mVPlayOffline = findViewById(R.id.v_play_offline);
@@ -678,6 +686,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        String exception = task.getException().toString();
+                        if (exception.contains("403")) {
+                            Toast.makeText(getApplicationContext(), "need VPN", Toast.LENGTH_SHORT).show();
+                        }
                         Log.d("createUser_", "task: " + task.toString());
                         if (task.isSuccessful()) {
                             String uid = mAuth.getCurrentUser().getUid();
@@ -702,11 +714,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             firebaseAuth.addAuthStateListener(firebaseAuthListner);
 
                         } else {
-                            Log.d("createUser_", "loginWithEmail: unsuccessful: " + task.getException());
+                            exception = task.getException().toString();
+//                                Toast.makeText(getApplicationContext(),"need VPN: "+task.getException(),Toast.LENGTH_SHORT).show();
+
+                            if (exception.contains("403")) {
+//                                Toast.makeText(getApplicationContext(),"need VPN",Toast.LENGTH_SHORT).show();
+                                dialogVPN = new DialogVPN(activity);
+                                dialogVPN.show(getSupportFragmentManager(),TAG);
+                            }
+                            Log.d("createUser_", "loginWithEmail: unsuccessful:wowowowow " + task.getException());
                             mAuth.signInWithEmailAndPassword(email, id)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
+                                            Log.d("createUser_", "task: " + task.toString());
+
                                             if (task.isSuccessful()) {
                                                 addUserToDataBase(email, name, id);
 

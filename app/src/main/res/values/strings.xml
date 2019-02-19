@@ -13,4 +13,5 @@
     <string name="users">Users that you can play with</string>
     <string name="sign_in_successfully">sign in successfully</string>
     <string name="deos_not_sign_in">does not sign in</string>
+    <string name="need_vpn">Maybe you live in Syria so you need VPN</string>
 </resources>
