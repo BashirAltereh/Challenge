@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.is2all.challenges.Helper.databaseClass;
 import com.is2all.challenges.R;
-import com.is2all.challenges.addPoint;
 import com.is2all.challenges.models.item;
 
 import java.io.File;
@@ -38,7 +37,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     private List<item> mDataList;
     private databaseClass mdata;
     private TextView mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
-    private ImageView mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour , mIvHint;
+    private ImageView mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour, mIvHint;
     String msgend;
 
     TextView txtFalse, txtTrue, mTvQuestion;
@@ -192,45 +191,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    //------------timer////////////////
-    public void addpoint(View view) {
-        MediaPlayer mediaaddpoint = MediaPlayer.create(this, R.raw.sound_click);
-        mediaaddpoint.start();
 
-        if (point == 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("لم يتبقى أي نقط \n يمكنك إضافة نقط عن طريق زيارة موقعنا أو مشاركة البرنامج بالضغط على زر إضافة نقط");
-            builder.setPositiveButton("إضافة نقط", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    addpoint();
-                }
-            });
-            builder.setNegativeButton("إلغاء", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog alert = builder.create();
-            alert.show();
-        } else {
-            handler.removeCallbacks(run);
-            count = 20;
-            point--;
-            btn7.setText("+نقط : " + point);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("الجواب الصحيح : \n رقم: " + correctAnswer);
-            builder.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            });
-            builder.show();
-        }
-    }
-
-    public void addpoint() {
-        Intent addPoin = new Intent(this, addPoint.class);
-        startActivity(addPoin);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void table() {
@@ -606,11 +567,12 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
 
     }
-    public void showHint(int correctAnswer) throws IndexOutOfBoundsException{
-        final int index = correctAnswer -1;
-        if(index < 0 || index > 3)
+
+    public void showHint(int correctAnswer) throws IndexOutOfBoundsException {
+        final int index = correctAnswer - 1;
+        if (index < 0 || index > 3)
             throw new IndexOutOfBoundsException();
-        else{
+        else {
             final ImageView[] hints = new ImageView[]{mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour};
             hints[index].setVisibility(View.VISIBLE);
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_out);

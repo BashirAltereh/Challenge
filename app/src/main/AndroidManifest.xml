@@ -29,9 +29,6 @@
         <activity
             android:name=".Activities.windows_asila"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".addPoint"
-            android:screenOrientation="portrait" />
 
         <!-- these for firebase -->
         <service android:name=".pushNotification.MyFirebaseMessagingService">
@@ -87,7 +84,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.UsersList"></activity>
+        <activity android:name=".Activities.UsersList"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

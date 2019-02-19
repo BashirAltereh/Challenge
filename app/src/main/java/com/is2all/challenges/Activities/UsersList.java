@@ -89,7 +89,6 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         mRvList = findViewById(R.id.rv_list);
-        mRvList.showShimmerAdapter();
 
         mData = findViewById(R.id.v_data);
         mProgress = findViewById(R.id.progress_bar);
@@ -105,6 +104,8 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
     }
 
     public void loadData() {
+        mRvList.showShimmerAdapter();
+
         isNeedVPN = true;
         //showView(ViewMode.PROGRESS);
         if (isNetworkConnected()) {

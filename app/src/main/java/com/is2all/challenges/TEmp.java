@@ -225,13 +225,6 @@ public class TEmp extends AppCompatActivity implements View.OnClickListener {
         startActivity(windows_asila);
     }
 
-    public void addpoint(View view) {
-        MediaPlayer media3 = MediaPlayer.create(this, R.raw.sound_click);
-        media3.start();
-
-        Intent addPoin = new Intent(this, addPoint.class);
-        startActivity(addPoin);
-    }
 
     public void Share(View view) {
         MediaPlayer media4 = MediaPlayer.create(this, R.raw.sound_click);

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape android:shape="rectangle" android:padding="10dp">
+        <shape
+            android:padding="10dp"
+            android:shape="rectangle">
             <corners
-                android:topRightRadius="10dp"
-                android:bottomRightRadius="10dp"
                 android:bottomLeftRadius="40dp"
+                android:bottomRightRadius="10dp"
                 android:topLeftRadius="40dp"
-                />
-            <solid
-                android:color="@color/light_gray"
-                />
+                android:topRightRadius="10dp" />
+            <solid android:color="@color/light_gray" />
         </shape>
     </item>
     <!--<item android:drawable="@drawable/frag_question"-->

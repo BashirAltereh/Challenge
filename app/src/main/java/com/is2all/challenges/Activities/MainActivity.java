@@ -53,7 +53,6 @@ import com.is2all.challenges.Helper.Utils;
 import com.is2all.challenges.OnGetEmail;
 import com.is2all.challenges.OnStartGame;
 import com.is2all.challenges.R;
-import com.is2all.challenges.addPoint;
 import com.is2all.challenges.fragments.DialogEmail;
 import com.is2all.challenges.fragments.DialogVPN;
 import com.is2all.challenges.fragments.customFragment;
@@ -286,13 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(windows_asila);
     }
 
-    public void addpoint(View view) {
-        MediaPlayer media3 = MediaPlayer.create(this, R.raw.sound_click);
-        media3.start();
 
-        Intent addPoin = new Intent(this, addPoint.class);
-        startActivity(addPoin);
-    }
 
     public void Share(View view) {
         MediaPlayer media4 = MediaPlayer.create(this, R.raw.sound_click);
