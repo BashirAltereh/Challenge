@@ -66,6 +66,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStartGame, OnGetEmail {
     private static final String TAG = "MainActivity__";
     private static final String EMAIL = "email";
@@ -141,10 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT).show();
+                    Toasty.success(getApplicationContext(),  getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT, true).show();
 
                 } else
-                    Toast.makeText(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getApplicationContext(),  getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT, true).show();
+
             }
         };
 
