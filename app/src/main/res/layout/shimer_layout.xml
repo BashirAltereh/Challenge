@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:layout_marginBottom="5dp"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_user_shimer"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_user_icon">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_user_name"
+            android:text="Bashir Altereh"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_user_icon"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="55dp"
+            android:textSize="21sp"
+            android:textColor="@color/red"
+            android:visibility="invisible"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_email"
+            android:text="bashiralterh@gmail.com"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+            app:layout_constraintStart_toEndOf="@id/iv_user_icon"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="55dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:visibility="invisible"
+
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:text="Invite to play"
+            android:id="@+id/btn_invite"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_email"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+
+            />
+
+    </android.support.constraint.ConstraintLayout>
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/iv_user_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:roundedCornerRadius="50dp"
+        app:roundAsCircle="true"
+        app:roundBottomStart="false"
+        app:roundBottomEnd="false"
+        app:roundingBorderWidth="3dp"
+        app:roundingBorderColor="@color/light_gray"
+        app:placeholderImage="@drawable/gray_circle"
+
+        />
+</android.support.constraint.ConstraintLayout>

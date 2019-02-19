@@ -5,11 +5,11 @@ import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +42,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UsersList extends AppCompatActivity implements View.OnClickListener, OnInviteListener, SwipeRefreshLayout.OnRefreshListener {
-    private static RecyclerView mRvList;
+    private static ShimmerRecyclerView mRvList;
     private UserAdapter adapter;
     private Toolbar toolbar;
     private View mData;
@@ -75,6 +76,8 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         mRvList = findViewById(R.id.rv_list);
+        mRvList.showShimmerAdapter();
+
         mData = findViewById(R.id.v_data);
         mProgress = findViewById(R.id.progress_bar);
         mErrorHolder = findViewById(R.id.root_error);
@@ -86,8 +89,8 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    public void loadData(){
-        showView(ViewMode.PROGRESS);
+    public void loadData() {
+        //showView(ViewMode.PROGRESS);
         if (isNetworkConnected())
             getUsers();
         else
@@ -119,7 +122,13 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
                             Log.d("List_", "id: " + user.getId() + " , name: " + user.getName() + " , email: " + user.getEmail());
                             users.add(user);
                         }
-                        showData(users);
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                showData(users);
+                            }
+                        }, 1500);
                     }
 
                     @Override

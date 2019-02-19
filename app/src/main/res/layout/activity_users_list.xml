@@ -51,11 +51,16 @@
                 android:id="@+id/refresh_layout"
                 >
 
-                <android.support.v7.widget.RecyclerView
+                <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/rv_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layoutAnimation="@anim/layout_slide_right" />
+                    shimmer:shimmer_demo_child_count="10"
+                    shimmer:shimmer_demo_layout_manager_type="linear_vertical"
+                    shimmer:shimmer_demo_layout="@layout/shimer_layout"
+                    shimmer:shimmer_demo_angle="20"
+                     />
             </android.support.v4.widget.SwipeRefreshLayout>
 
         </android.support.constraint.ConstraintLayout>
@@ -69,6 +74,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
