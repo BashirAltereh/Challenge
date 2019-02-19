@@ -395,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(EMAIL,"public_profile"));
 
                 } else {
-                    Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "Ok", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, UsersList.class);
                     startActivity(intent);
 //                    ID = firebaseAuth.getCurrentUser().getUid();
@@ -679,7 +679,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        String exception = task.getException().toString();
+                        String exception;
+                        try {
+                            exception = task.getException().toString();
+                        }
+                        catch (Exception e){
+                            exception = "";
+                        }
                         if (exception.contains("403")) {
 //                            Toast.makeText(getApplicationContext(), "need VPN", Toast.LENGTH_SHORT).show();
                             dialogVPN = new DialogVPN(activity);

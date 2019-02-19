@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.is2all.challenges"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -42,6 +42,7 @@ dependencies {
 
     implementation 'com.github.GrenderG:Toasty:1.4.0'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+    implementation 'com.github.Yalantis:Context-Menu.Android:1.1.4'
 
 
     //    implementation 'com.google.firebase:firebase-auth:16.0.1'
