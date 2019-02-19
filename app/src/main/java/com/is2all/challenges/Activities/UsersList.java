@@ -1,5 +1,6 @@
 package com.is2all.challenges.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
@@ -14,7 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +33,7 @@ import com.is2all.challenges.Helper.ViewMode;
 import com.is2all.challenges.OnInviteListener;
 import com.is2all.challenges.R;
 import com.is2all.challenges.adapters.UserAdapter;
+import com.is2all.challenges.fragments.DialogVPN;
 import com.is2all.challenges.models.User;
 
 import java.io.IOException;
@@ -49,8 +53,15 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
     private ProgressBar mProgress;
     private Button mBtnRetry;
     private TextView mTvError;
+    private ImageView mIvError;
     private View mErrorHolder;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private DialogVPN dialogVPN;
+    private Activity activity;
+
+    private Boolean firstEnter = true;
+    private Boolean isNeedVPN = true;
 
     private ArrayList<User> users = new ArrayList<>();
 
@@ -61,6 +72,8 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_list);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         init();
         overridePendingTransition(R.anim.slide_up, R.anim.slide_out_down);
         loadData();
@@ -68,7 +81,7 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
 
 
     public void init() {
-
+        activity = this;
         toolbar = findViewById(R.id.tool_bar);
         toolbar.setTitle(R.string.users);
         setSupportActionBar(toolbar);
@@ -84,17 +97,23 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
         mTvError = findViewById(R.id.tv_error);
         mBtnRetry = findViewById(R.id.btn_retry);
         swipeRefreshLayout = findViewById(R.id.refresh_layout);
+        mIvError = findViewById(R.id.iv_error);
         swipeRefreshLayout.setOnRefreshListener(this);
         mBtnRetry.setOnClickListener(this);
+        checkProxy();
 
     }
 
     public void loadData() {
+        isNeedVPN = true;
         //showView(ViewMode.PROGRESS);
-        if (isNetworkConnected())
+        if (isNetworkConnected()) {
             getUsers();
-        else
+        }
+        else {
+            isNeedVPN = false;
             showView(ViewMode.NO_CONNICTION);
+        }
 
     }
 
@@ -104,6 +123,7 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
         mRvList.setAdapter(adapter);
 //        RecyclerViewAnimation.runLayoutAnimation(mRvList);
         swipeRefreshLayout.setRefreshing(false);
+        isNeedVPN = false;
         showView(ViewMode.DATA);
     }
 
@@ -122,13 +142,16 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
                             Log.d("List_", "id: " + user.getId() + " , name: " + user.getName() + " , email: " + user.getEmail());
                             users.add(user);
                         }
+                        int MILLES = (firstEnter) ? 1500 : 0;
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                isNeedVPN = false;
                                 showData(users);
+
                             }
-                        }, 1500);
+                        }, MILLES);
                     }
 
                     @Override
@@ -167,12 +190,14 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
                 mData.setVisibility(View.VISIBLE);
                 mProgress.setVisibility(View.GONE);
                 mErrorHolder.setVisibility(View.GONE);
+                toolbar.setVisibility(View.VISIBLE);
 
                 break;
             case ViewMode.PROGRESS:
                 mProgress.setVisibility(View.VISIBLE);
                 mData.setVisibility(View.GONE);
                 mErrorHolder.setVisibility(View.GONE);
+                toolbar.setVisibility(View.GONE);
 
 
                 break;
@@ -180,12 +205,16 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
                 mProgress.setVisibility(View.GONE);
                 mData.setVisibility(View.GONE);
                 mErrorHolder.setVisibility(View.VISIBLE);
+                toolbar.setVisibility(View.GONE);
+
 
                 break;
             case ViewMode.NO_PROXY:
                 mProgress.setVisibility(View.GONE);
                 mData.setVisibility(View.GONE);
                 mErrorHolder.setVisibility(View.VISIBLE);
+                toolbar.setVisibility(View.GONE);
+
 
                 break;
         }
@@ -261,5 +290,26 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
                 loadData();
                 break;
         }
+    }
+
+    public void checkProxy() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(isNeedVPN) {
+                    showView(ViewMode.NO_PROXY);
+                    mTvError.setText(getString(R.string.need_vpn));
+                    mIvError.setImageResource(R.drawable.ic_vpn);
+                    dialogVPN = new DialogVPN(activity);
+                    try {
+
+                    dialogVPN.show(getSupportFragmentManager(), "");
+                    }
+                    catch (Exception e){}
+                }
+
+            }
+        }, 10000);
     }
 }

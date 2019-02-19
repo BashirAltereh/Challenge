@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             app:layout_constraintBottom_toTopOf="@id/v_data"
+            android:visibility="gone"
             app:layout_constraintVertical_chainStyle="spread_inside"
 
             app:layout_scrollFlags="scroll"

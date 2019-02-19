@@ -688,7 +688,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         String exception = task.getException().toString();
                         if (exception.contains("403")) {
-                            Toast.makeText(getApplicationContext(), "need VPN", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "need VPN", Toast.LENGTH_SHORT).show();
+                            dialogVPN = new DialogVPN(activity);
+                            try {
+                                dialogVPN.show(getSupportFragmentManager(), TAG);
+                            } catch (Exception e) {
+                            }
+                            return;
                         }
                         Log.d("createUser_", "task: " + task.toString());
                         if (task.isSuccessful()) {
@@ -717,11 +723,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             exception = task.getException().toString();
 //                                Toast.makeText(getApplicationContext(),"need VPN: "+task.getException(),Toast.LENGTH_SHORT).show();
 
-                            if (exception.contains("403")) {
-//                                Toast.makeText(getApplicationContext(),"need VPN",Toast.LENGTH_SHORT).show();
-                                dialogVPN = new DialogVPN(activity);
-                                dialogVPN.show(getSupportFragmentManager(),TAG);
-                            }
+//                            if (exception.contains("403")) {
+////                                Toast.makeText(getApplicationContext(),"need VPN",Toast.LENGTH_SHORT).show();
+//                                dialogVPN = new DialogVPN(activity);
+//                                try {
+//                                    dialogVPN.show(getSupportFragmentManager(), TAG);
+//                                } catch (Exception e) {
+//                                }
+//                            }
                             Log.d("createUser_", "loginWithEmail: unsuccessful:wowowowow " + task.getException());
                             mAuth.signInWithEmailAndPassword(email, id)
                                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -785,7 +794,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Gson gson = new Gson();
         final User user = gson.fromJson(tUser, User.class);
         if (user.getEmail() == null || user.getName() == null) {
-            Toast.makeText(this, "Problem in your email", Toast.LENGTH_SHORT).show();
+            Toasty.warning(getApplicationContext(), R.string.email_problem, Toast.LENGTH_SHORT, true).show();
             dialogEmail = new DialogEmail(this, this, this);
 
             dialogEmail.setCancelable(false);
