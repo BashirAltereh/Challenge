@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
     <Button
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/btn_open_vpn"
         app:layout_constraintStart_toStartOf="parent"

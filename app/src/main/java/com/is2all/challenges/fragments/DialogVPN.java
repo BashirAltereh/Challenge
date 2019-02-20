@@ -37,9 +37,11 @@ public class DialogVPN extends DialogFragment {
         imageView = view.findViewById(R.id.iv_vpn);
         mBtnOPenVPN = view.findViewById(R.id.btn_open_vpn);
 
-        final String appPackageName = "com.psiphon3"; // getPackageName() from Context or Activity object
-        PackageManager pm = activity.getPackageManager();
-        final boolean isInstalled = isPackageInstalled(appPackageName, pm);
+        final String appPackageName1 = "com.psiphon3"; // package name
+        final String appPackageName2 = "com.psiphon3.subscription"; // package name
+
+        PackageManager packageManager = activity.getPackageManager();
+        final boolean isInstalled = isPackageInstalled(appPackageName1, appPackageName2, packageManager);
 
         if (isInstalled)
             mBtnOPenVPN.setText(getString(R.string.open_vpn));
@@ -52,14 +54,18 @@ public class DialogVPN extends DialogFragment {
             public void onClick(View v) {
 
                 if (isInstalled) {
-
-                    Intent launchApplication = getActivity().getPackageManager().getLaunchIntentForPackage(appPackageName);
-                    startActivity(launchApplication);
+                    try {
+                        Intent launchApplication = getActivity().getPackageManager().getLaunchIntentForPackage(appPackageName1);
+                        startActivity(launchApplication);
+                    } catch (Exception e){
+                        Intent launchApplication = getActivity().getPackageManager().getLaunchIntentForPackage(appPackageName2);
+                        startActivity(launchApplication);
+                    }
                 } else {
                     try {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName2)));
                     } catch (android.content.ActivityNotFoundException anfe) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName2)));
                     }
                 }
                 dismiss();
@@ -83,12 +89,21 @@ public class DialogVPN extends DialogFragment {
         getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.1), (int) (dimention.getHeight() / 2));
     }
 
-    private boolean isPackageInstalled(String packagename, PackageManager packageManager) {
+    private boolean isPackageInstalled(String packagename1, String packagename2, PackageManager packageManager) {
+        boolean isInsall1 = false;
+        boolean isInsall2 = false;
         try {
-            packageManager.getPackageInfo(packagename, 0);
-            return true;
+            packageManager.getPackageInfo(packagename1, 0);
+            isInsall1 = true;
         } catch (PackageManager.NameNotFoundException e) {
-            return false;
+            isInsall1 = false;
         }
+        try {
+            packageManager.getPackageInfo(packagename2, 0);
+            isInsall2 = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            isInsall2 = false;
+        }
+        return isInsall1 || isInsall2;
     }
 }

@@ -692,7 +692,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        dialogVPN.show(getSupportFragmentManager(), TAG);
+                                        try {
+                                            dialogVPN.show(getSupportFragmentManager(), TAG);
+                                        } catch (Exception e) {
+                                        }
 
                                     }
                                 }, 1000);

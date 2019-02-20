@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +38,7 @@ import com.is2all.challenges.models.User;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -223,8 +223,9 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
 
     @Override
     public void onUserInviteListner(final User user) {
-        Toast.makeText(this, "Fdsf: " + user.getName() + " , " + user.getEmail(), Toast.LENGTH_SHORT).show();
-
+//        Toast.makeText(this, "Fdsf: " + user.getName() + " , " + user.getEmail(), Toast.LENGTH_SHORT).show();
+//        Toasty.normal(this, "Coming soon").show();
+        Toasty.custom(this, "Soon", getResources().getDrawable(R.drawable.ic_wait), getResources().getColor(R.color.colorPrimary),getResources().getColor(R.color.white), Toasty.LENGTH_SHORT, true,true).show();
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("users")
