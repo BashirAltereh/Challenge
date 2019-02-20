@@ -27,5 +27,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_open_vpn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_vpn"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_shape"
+        android:text="@string/open_vpn"
+        android:textColor="@color/white"
+        />
+
 
 </android.support.constraint.ConstraintLayout>

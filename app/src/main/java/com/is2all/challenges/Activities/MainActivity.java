@@ -286,7 +286,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     public void Share(View view) {
         MediaPlayer media4 = MediaPlayer.create(this, R.raw.sound_click);
         media4.start();
@@ -682,15 +681,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         String exception;
                         try {
                             exception = task.getException().toString();
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             exception = "";
                         }
                         if (exception.contains("403")) {
 //                            Toast.makeText(getApplicationContext(), "need VPN", Toast.LENGTH_SHORT).show();
                             dialogVPN = new DialogVPN(activity);
                             try {
-                                dialogVPN.show(getSupportFragmentManager(), TAG);
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialogVPN.show(getSupportFragmentManager(), TAG);
+
+                                    }
+                                }, 1000);
                             } catch (Exception e) {
                             }
                             return;
