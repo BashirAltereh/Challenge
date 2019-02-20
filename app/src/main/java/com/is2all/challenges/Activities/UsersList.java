@@ -304,6 +304,7 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
                     mTvError.setText(getString(R.string.need_vpn));
                     mIvError.setImageResource(R.drawable.ic_vpn);
                     dialogVPN = new DialogVPN(activity);
+                    dialogVPN.setCancelable(false);
                     try {
 
                     dialogVPN.show(getSupportFragmentManager(), "");

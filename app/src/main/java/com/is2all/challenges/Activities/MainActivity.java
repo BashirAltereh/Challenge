@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -48,12 +49,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.is2all.challenges.Helper.CommunicationType;
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
 import com.is2all.challenges.OnGetEmail;
+import com.is2all.challenges.OnNeedCommunicate;
 import com.is2all.challenges.OnStartGame;
 import com.is2all.challenges.R;
 import com.is2all.challenges.fragments.DialogEmail;
+import com.is2all.challenges.fragments.DialogInfo;
 import com.is2all.challenges.fragments.DialogVPN;
 import com.is2all.challenges.fragments.customFragment;
 import com.is2all.challenges.models.User;
@@ -68,7 +72,7 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStartGame, OnGetEmail {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStartGame, OnGetEmail, OnNeedCommunicate {
     private static final String TAG = "MainActivity__";
     private static final String EMAIL = "email";
     private static final String USER_FIREDS = "user_friends";
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean isLoggedIn;
 
     private View mVPlayOffline, mVPlayWithFirends, mView;
-    private ImageView mIvLOGO, mIvClick;
+    private ImageView mIvLOGO, mIvClick, mIvInfo;
     private LoginButton mBtnLogIn;
     private FirebaseAuth mAuth;
     private CallbackManager callbackManager;
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private customFragment framgent;
     private DialogEmail dialogEmail;
     private DialogVPN dialogVPN;
+    private DialogInfo dialogInfo;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -212,9 +217,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mView = findViewById(R.id.linearLayout);
         mIvLOGO = findViewById(R.id.iv_logo);
         mIvClick = findViewById(R.id.iv_click);
+        mIvInfo = findViewById(R.id.iv_info);
+
+        mIvInfo.setOnClickListener(this);
         mBtnLogIn.setOnClickListener(this);
         mVPlayOffline.setOnClickListener(this);
         mVPlayWithFirends.setOnClickListener(this);
+
         // Write a message to the database
         accessToken = AccessToken.getCurrentAccessToken();
 
@@ -410,6 +419,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.login_button:
 //                if (isLoggedIn)
 //                    LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+                break;
+
+            case R.id.iv_info:
+                dialogInfo = new DialogInfo(this, this);
+                dialogInfo.show(getSupportFragmentManager(), TAG);
                 break;
         }
     }
@@ -884,5 +898,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Utils.savePushToken(refreshedToken, uid);
+    }
+
+    @Override
+    public void OnNeedCommunicateListner(CommunicationType type) {
+        Intent intent;
+        switch (type) {
+            case EMAIL:
+
+                dialogInfo.dismiss();
+                break;
+            case FACEBOOK:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100003729378979"));
+                dialogInfo.dismiss();
+                startActivity(intent);
+                break;
+            case PHONE_NUMBER:
+                intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:0954226805"));
+                dialogInfo.dismiss();
+                startActivity(intent);
+                break;
+        }
+
     }
 }

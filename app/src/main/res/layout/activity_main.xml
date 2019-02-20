@@ -6,11 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_question"
-    tools:context="com.is2all.challenges.Activities.windows_asila"
+    tools:context="com.is2all.challenges.Activities.windows_asila">
 
-    >
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/iv_info"
+        android:src="@drawable/info_img"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
 
-
+        />
     <!--<Button-->
     <!--android:id="@+id/button10"-->
     <!--android:layout_width="0dp"-->
