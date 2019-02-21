@@ -32,18 +32,22 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Random;
 
+import es.dmoral.toasty.Toasty;
+
 public class windows_asila extends AppCompatActivity implements View.OnClickListener {
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences, sharedPreferencesUser;
     private List<item> mDataList;
     private databaseClass mdata;
+    private int Points = 0;
     private TextView mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
+    private TextView mTvPoints;
     private ImageView mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour, mIvHint;
     String msgend;
 
     TextView txtFalse, txtTrue, mTvQuestion;
 
     static Random rand = new Random(); // static li 3adam tikrar ra9m
-    int rnd, id, sizeData, count = 20, correctAnswer, point = 3;
+    int rnd, id, sizeData, count = 20, correctAnswer;
     private boolean sound;
     Handler handler = new Handler();
     MediaPlayer media_false, media_true;
@@ -73,7 +77,11 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void init() {
+        sharedPreferencesUser = getSharedPreferences("userInfo", MODE_PRIVATE);
 
+        Points = sharedPreferencesUser.getInt("points", 10);
+
+        mTvPoints = findViewById(R.id.tv_points);
         mTvQuestion = findViewById(R.id.tv_question);
         mBtnFistAnswer = findViewById(R.id.btn_first_answer);
         mBtnSecondAnswer = findViewById(R.id.btn_second_answer);
@@ -86,8 +94,15 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mIvHintFour = findViewById(R.id.iv_hint_4);
 
         mIvHint = findViewById(R.id.iv_hint);
+        Toast.makeText(this, "po: " + Points, Toast.LENGTH_SHORT).show();
+        if (Points < 2)
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
+        else
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_on));
 
         mIvHint.setOnClickListener(this);
+
+        mTvPoints.setText(String.valueOf(Points));
 
         mBtnFistAnswer.setOnClickListener(this);
         mBtnSecondAnswer.setOnClickListener(this);
@@ -138,28 +153,28 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         }
 
         timer();
-        if (mDataList.size() <= 1) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("لقد أنهيت جميع المراحل\n انتظر الاصدار القادم \n وإلا أعد المحاولة إذا كانت أكثر اجوبتك خاطئة");
-            builder.setPositiveButton("إعادة المحاولة", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    restarteGame();
-                }
-            });
-            builder.setNegativeButton("أرسل التطبيق", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    share();
-                }
-            });
-            builder.show();
-
-            btn6.setText(sizeData + "/" + sizeData);
-            handler.removeCallbacks(run);
-        } else {
-            table();
-            btn6.setText(txtTrue.getText().toString() + "/" + sizeData);
-            btn7.setText("+نقط : " + point);
-        }
+//        if (mDataList.size() <= 1) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setMessage("لقد أنهيت جميع المراحل\n انتظر الاصدار القادم \n وإلا أعد المحاولة إذا كانت أكثر اجوبتك خاطئة");
+//            builder.setPositiveButton("إعادة المحاولة", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int whichButton) {
+//                    restarteGame();
+//                }
+//            });
+//            builder.setNegativeButton("أرسل التطبيق", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int id) {
+//                    share();
+//                }
+//            });
+//            builder.show();
+//
+//            btn6.setText(sizeData + "/" + sizeData);
+//            handler.removeCallbacks(run);
+//        } else {
+//            table();
+//            btn6.setText(txtTrue.getText().toString() + "/" + sizeData);
+//            btn7.setText("+نقط : " + point);
+//        }
 
     }
 
@@ -192,9 +207,13 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void table() {
+        Points = sharedPreferencesUser.getInt("points", 0);
+        if (Points < 2)
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
+        else
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_on));
 
         handler.removeCallbacks(run);
         count = 20;
@@ -222,6 +241,8 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         timer();
 
     }
+
+
 
     private boolean copyDatabase(Context context) {
         try {
@@ -320,6 +341,18 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     public void trueNextQuestion() {
         sound = sharedPreferences.getBoolean("sound", true);
+        Points = sharedPreferencesUser.getInt("points", 0);
+        mTvPoints.setText(String.valueOf(Points + 2));
+
+        SharedPreferences.Editor editor = sharedPreferencesUser.edit();
+        editor.putInt("points", Points + 2);
+        editor.commit();
+
+        if (Points < 2)
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
+        else
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_on));
+
         if (sound) {
             media_true.start();
         }
@@ -336,6 +369,20 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     public void falseNextQuestion() {
         sound = sharedPreferences.getBoolean("sound", true);
+        Points = sharedPreferencesUser.getInt("points", 0);
+
+        SharedPreferences.Editor editor = sharedPreferencesUser.edit();
+        if (Points >= 2) {
+            mTvPoints.setText(String.valueOf(Points - 2));
+            editor.putInt("points", Points - 2);
+            editor.commit();
+        }
+        Points = sharedPreferencesUser.getInt("points", 0);
+        if (Points < 2)
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
+        else
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_on));
+
 
         if (sound) {
             media_false.start();
@@ -389,7 +436,6 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         editor.putString("txtFalse", txtFalse.getText().toString());
         editor.putString("btn6", btn6.getText().toString());
 
-        editor.putInt("Point", point);
         editor.putInt("list" + id, id);
         editor.apply();
     }
@@ -406,8 +452,6 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         String butn6 = savechange.getString("btn6", sizeData + "/" + sizeData);
         btn6.setText(butn6);
 
-        int Point = savechange.getInt("Point", point);
-        this.point = Point;
 
         int i = 0;
         int data = mDataList.size();
@@ -431,6 +475,13 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     public void clearState() {
+        Points = 10;
+        SharedPreferences.Editor editor1 = sharedPreferencesUser.edit();
+        editor1.putInt("points", Points);
+        mTvPoints.setText(String.valueOf(Points));
+
+        editor1.commit();
+
         SharedPreferences savechange = this.getSharedPreferences("savechange", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = savechange.edit();
         editor.clear();
@@ -450,9 +501,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         table();
 /////////////////////// استرجاع النقط المضافة /////////////////////
         SharedPreferences savechange = this.getSharedPreferences("savechange", Context.MODE_PRIVATE);
-        int Point = savechange.getInt("Point", point);
-        this.point = Point;
-        btn7.setText("+نقط : " + point);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -569,21 +618,35 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     public void showHint(int correctAnswer) throws IndexOutOfBoundsException {
+        if (Points < 2)
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
+        else
+            mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_on));
+
+        Points = sharedPreferencesUser.getInt("points", 0);
         final int index = correctAnswer - 1;
         if (index < 0 || index > 3)
             throw new IndexOutOfBoundsException();
         else {
-            final ImageView[] hints = new ImageView[]{mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour};
-            hints[index].setVisibility(View.VISIBLE);
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-            hints[index].startAnimation(animation);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    hints[index].setVisibility(View.GONE);
-                }
-            }, 1000);
+            if (Points >= 2) {
+                final ImageView[] hints = new ImageView[]{mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour};
+                hints[index].setVisibility(View.VISIBLE);
+                Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+                hints[index].startAnimation(animation);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        hints[index].setVisibility(View.GONE);
+                    }
+                }, 1000);
+                SharedPreferences.Editor editor = sharedPreferencesUser.edit();
+                editor.putInt("points", Points - 2);
+                editor.commit();
+                mTvPoints.setText(String.valueOf(Points - 2));
+
+            } else
+                Toasty.custom(this, getResources().getString(R.string.no_enogh_point), getResources().getDrawable(R.drawable.ic_points), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.white), Toasty.LENGTH_SHORT, true, true).show();
         }
     }
 }

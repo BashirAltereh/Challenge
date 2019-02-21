@@ -50,6 +50,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/khatae_a"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button6" />
 
@@ -59,6 +60,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:visibility="gone"
             android:layout_marginRight="8dp"
             android:background="@drawable/sah_a"
             app:layout_constraintRight_toRightOf="parent"
@@ -74,6 +76,7 @@
             android:textAlignment="center"
             android:textColor="#050000"
             android:textSize="18sp"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button8" />
 
@@ -87,6 +90,7 @@
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="18sp"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button9" />
 
@@ -113,25 +117,52 @@
             android:id="@+id/iv_sound"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_sound"
             android:layout_marginTop="10dp"
+            android:src="@drawable/ic_sound"
             app:layout_constraintLeft_toLeftOf="@+id/button8"
             app:layout_constraintRight_toRightOf="@+id/button9"
             app:layout_constraintTop_toBottomOf="@+id/btnTimer"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1" />
+
         <ImageView
             android:id="@+id/iv_hint"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_hint_on"
             android:layout_margin="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/iv_sound"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnTimer"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1" />
 
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnTimer">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/back_points" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_points"
+                android:text="10"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+        </android.support.constraint.ConstraintLayout>
 
 
     </android.support.constraint.ConstraintLayout>

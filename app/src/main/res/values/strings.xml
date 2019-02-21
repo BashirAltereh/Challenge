@@ -22,4 +22,5 @@
     <string name="number_phone"><u>0954226805</u></string>
     <string name="developer_information">Developer information</string>
     <string name="name_mohammed_bashir_altereh"><fornt color="#000000"><u><b>Name:</b></u> </fornt>Mohammed Bashir Altereh</string>
+    <string name="no_enogh_point">You don\'t have enough points</string>
 </resources>
