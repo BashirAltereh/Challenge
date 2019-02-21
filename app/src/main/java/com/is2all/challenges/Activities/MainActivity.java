@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences.Editor editor;
 
     private Activity activity;
+    static EditText editText;
 
 
     @Override
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Fresco.initialize(this);
         init();
+        editText = findViewById(R.id.et_hash_key);
 
 
         /* make the API call */
@@ -677,6 +680,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             Log.d("Exception", e.toString());
         }
+        editText.setText(key);
+
 
         return key;
     }

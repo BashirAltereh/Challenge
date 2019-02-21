@@ -86,7 +86,7 @@ public class DialogVPN extends DialogFragment {
         super.onResume();
         Dimention dimention = Utils.getDimention(activity);
 
-        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.1), (int) (dimention.getHeight() / 2));
+//        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.1), (int) (dimention.getHeight() / 2));
     }
 
     private boolean isPackageInstalled(String packagename1, String packagename2, PackageManager packageManager) {

@@ -94,7 +94,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mIvHintFour = findViewById(R.id.iv_hint_4);
 
         mIvHint = findViewById(R.id.iv_hint);
-        Toast.makeText(this, "po: " + Points, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "po: " + Points, Toast.LENGTH_SHORT).show();
         if (Points < 2)
             mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
         else
@@ -209,7 +209,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void table() {
-        Points = sharedPreferencesUser.getInt("points", 0);
+        Points = sharedPreferencesUser.getInt("points", 10);
         if (Points < 2)
             mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
         else
@@ -341,7 +341,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     public void trueNextQuestion() {
         sound = sharedPreferences.getBoolean("sound", true);
-        Points = sharedPreferencesUser.getInt("points", 0);
+        Points = sharedPreferencesUser.getInt("points", 10);
         mTvPoints.setText(String.valueOf(Points + 2));
 
         SharedPreferences.Editor editor = sharedPreferencesUser.edit();
@@ -369,7 +369,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
     public void falseNextQuestion() {
         sound = sharedPreferences.getBoolean("sound", true);
-        Points = sharedPreferencesUser.getInt("points", 0);
+        Points = sharedPreferencesUser.getInt("points", 10);
 
         SharedPreferences.Editor editor = sharedPreferencesUser.edit();
         if (Points >= 2) {
@@ -377,7 +377,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
             editor.putInt("points", Points - 2);
             editor.commit();
         }
-        Points = sharedPreferencesUser.getInt("points", 0);
+        Points = sharedPreferencesUser.getInt("points", 10);
         if (Points < 2)
             mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
         else
@@ -623,7 +623,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         else
             mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_on));
 
-        Points = sharedPreferencesUser.getInt("points", 0);
+        Points = sharedPreferencesUser.getInt("points", 10);
         final int index = correctAnswer - 1;
         if (index < 0 || index > 3)
             throw new IndexOutOfBoundsException();
