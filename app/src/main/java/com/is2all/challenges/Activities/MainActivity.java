@@ -905,8 +905,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (type) {
             case EMAIL:
-
+                intent = new Intent(Intent.ACTION_SEND);
+                String[] recipients = {"bashiralterh1998@gmail.com"};
+                intent.putExtra(Intent.EXTRA_EMAIL, recipients);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Report of Challenge game");
+                intent.putExtra(Intent.EXTRA_TEXT, "Dear Bashir ...........");
+//                intent.putExtra(Intent.EXTRA_CC, "ghi");
+                intent.setType("text/plain");
                 dialogInfo.dismiss();
+                startActivity(intent);
                 break;
             case FACEBOOK:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100003729378979"));

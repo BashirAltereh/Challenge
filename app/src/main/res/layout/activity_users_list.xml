@@ -23,7 +23,7 @@
             android:visibility="gone"
             app:layout_constraintVertical_chainStyle="spread_inside"
 
-            app:layout_scrollFlags="scroll"
+            app:layout_scrollFlags="scroll|enterAlways"
             app:theme="@style/Base.ThemeOverlay.AppCompat.Dark">
 
 

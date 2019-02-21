@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.is2all.challenges.Helper.CommunicationType;
 import com.is2all.challenges.Helper.Utils;
 import com.is2all.challenges.OnNeedCommunicate;
@@ -21,6 +22,7 @@ import com.is2all.challenges.models.Dimention;
 @SuppressLint("ValidFragment")
 public class DialogInfo extends DialogFragment implements View.OnClickListener {
     private TextView mTvPhone, mTvEmail, mTvFacebook;
+    private SimpleDraweeView mIvMyPhoto;
     private OnNeedCommunicate onNeedCommunicate;
     private Context context;
 
@@ -39,6 +41,8 @@ public class DialogInfo extends DialogFragment implements View.OnClickListener {
         mTvPhone = view.findViewById(R.id.tv_call);
         mTvEmail = view.findViewById(R.id.tv_email);
         mTvFacebook = view.findViewById(R.id.tv_facebook);
+        mIvMyPhoto = view.findViewById(R.id.iv_dev);
+
 
         mTvPhone.setOnClickListener(this);
         mTvEmail.setOnClickListener(this);
@@ -61,7 +65,12 @@ public class DialogInfo extends DialogFragment implements View.OnClickListener {
         super.onResume();
         Dimention dimention = Utils.getDimention(getActivity());
 
-        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.3), (int) (dimention.getHeight() / 2.5));
+        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.3), (int) (dimention.getHeight() / 1.9));
+        ViewGroup.LayoutParams layoutParams = mIvMyPhoto.getLayoutParams();
+        layoutParams.width = dimention.getWidth() / 3;
+        layoutParams.height = (int) (dimention.getHeight() / 4.2);
+        mIvMyPhoto.setLayoutParams(layoutParams);
+
     }
 
     public void sendAppMsg(View view) {
