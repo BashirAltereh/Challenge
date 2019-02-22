@@ -60,7 +60,7 @@ import com.is2all.challenges.R;
 import com.is2all.challenges.fragments.DialogEmail;
 import com.is2all.challenges.fragments.DialogInfo;
 import com.is2all.challenges.fragments.DialogVPN;
-import com.is2all.challenges.fragments.customFragment;
+import com.is2all.challenges.fragments.DialogStartGame;
 import com.is2all.challenges.models.User;
 
 import org.json.JSONException;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
-    private customFragment framgent;
+    private DialogStartGame framgent;
     private DialogEmail dialogEmail;
     private DialogVPN dialogVPN;
     private DialogInfo dialogInfo;
@@ -389,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }, 1000);
                 MediaPlayer media1 = MediaPlayer.create(this, R.raw.sound_click);
                 media1.start();
-                framgent = new customFragment(this, this, this);
+                framgent = new DialogStartGame(this, this, this);
 
                 framgent.show(getSupportFragmentManager(), TAG);
 

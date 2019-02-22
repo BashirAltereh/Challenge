@@ -18,14 +18,14 @@ import com.is2all.challenges.R;
 import com.is2all.challenges.models.Dimention;
 
 @SuppressLint("ValidFragment")
-public class customFragment extends DialogFragment {
+public class DialogStartGame extends DialogFragment {
     private View mVCreateNewGame, mVResume;
     private OnStartGame onStartGame;
     private Context context;
     private Activity activity;
 
     @SuppressLint("ValidFragment")
-    public customFragment(Context context, Activity activity, OnStartGame onStartGame) {
+    public DialogStartGame(Context context, Activity activity, OnStartGame onStartGame) {
         this.context = context;
         this.activity = activity;
         this.onStartGame = onStartGame;
@@ -35,7 +35,7 @@ public class customFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_start_game, container, false);
+        View view = inflater.inflate(R.layout.dialog_start_game, container, false);
         mVCreateNewGame = view.findViewById(R.id.v_new_game);
         mVResume = view.findViewById(R.id.v_resume);
         mVCreateNewGame.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +70,7 @@ public class customFragment extends DialogFragment {
         super.onResume();
         Dimention dimention = Utils.getDimention(activity);
 
-        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.3), dimention.getHeight() / 2);
+//        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.3), dimention.getHeight() / 2);
     }
 }
 
