@@ -917,18 +917,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                intent.putExtra(Intent.EXTRA_CC, "ghi");
                 intent.setType("text/plain");
                 dialogInfo.dismiss();
-                startActivity(intent);
-                break;
+                try {
+                    startActivity(intent);
+                }
+                catch (Exception e){
+                    Toasty.error(this,"Error: "+e.getMessage()).show();
+                }                break;
             case FACEBOOK:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100003729378979"));
                 dialogInfo.dismiss();
-                startActivity(intent);
-                break;
+                try {
+                    startActivity(intent);
+                }
+                catch (Exception e){
+                    Toasty.error(this,"Error: "+e.getMessage()).show();
+                }                break;
             case PHONE_NUMBER:
                 intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:0954226805"));
                 dialogInfo.dismiss();
-                startActivity(intent);
+                try {
+                    startActivity(intent);
+                }
+                catch (Exception e){
+                    Toasty.error(this,"Error: "+e.getMessage()).show();
+                }
                 break;
         }
 

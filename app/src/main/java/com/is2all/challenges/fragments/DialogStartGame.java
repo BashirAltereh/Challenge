@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
@@ -54,6 +55,8 @@ public class DialogStartGame extends DialogFragment {
         });
 
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
+        getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return view;
 
     }

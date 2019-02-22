@@ -10,7 +10,6 @@
     android:paddingRight="20dp"
     android:layoutDirection="ltr"
     >
-
     <TextView
         android:id="@+id/tv_dev_info"
         android:layout_width="wrap_content"
