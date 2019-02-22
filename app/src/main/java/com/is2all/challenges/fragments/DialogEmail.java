@@ -70,7 +70,7 @@ public class DialogEmail extends DialogFragment {
         super.onResume();
         Dimention dimention = Utils.getDimention(activity);
 
-        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.3), dimention.getHeight() / 4);
+//        getDialog().getWindow().setLayout((int) (dimention.getWidth() / 1.3), dimention.getHeight() / 4);
     }
     @Override
     public boolean isCancelable() {

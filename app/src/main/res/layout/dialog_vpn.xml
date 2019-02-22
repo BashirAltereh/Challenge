@@ -7,7 +7,7 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="10dp"
-    >
+    android:layoutDirection="ltr">
 
     <TextView
         android:layout_width="wrap_content"

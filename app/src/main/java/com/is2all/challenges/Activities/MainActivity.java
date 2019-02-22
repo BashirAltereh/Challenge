@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         init();
         editText = findViewById(R.id.et_hash_key);
 
-
         /* make the API call */
 
         // If you are using in a fragment, call loginButton.setFragment(this);

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/back_question"
     android:orientation="vertical"
+    android:layoutDirection="ltr"
+
     android:weightSum="1">
 
     <android.support.constraint.ConstraintLayout
