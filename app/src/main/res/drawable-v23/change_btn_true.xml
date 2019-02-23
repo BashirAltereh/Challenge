@@ -18,10 +18,13 @@
 
             </item>
 
-            <item android:id="@+id/iv_one" android:width="50dp" android:height="50dp"
-                android:bottom="7dp" android:drawable="@drawable/ic_three"
-                android:gravity="right|center_vertical" android:left="267dp"
-                android:right="7dp" android:top="7dp">
+            <item
+                android:drawable="@drawable/ic_happy"
+                android:width="50dp"
+                android:height="50dp"
+                android:gravity="right|center_vertical"
+                android:right="10dp"
+                >
 
             </item>
 

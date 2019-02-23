@@ -62,7 +62,6 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         init();
         startAnimation();
 
@@ -655,7 +654,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         final Animation slideRight = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
         final Animation slideLeft = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
         final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.scale);
-        slideUp.setDuration(700);
+        slideUp.setDuration(500);
         mBtnFistAnswer.setVisibility(View.GONE);
         mBtnSecondAnswer.setVisibility(View.GONE);
         mBtnThirdAnswer.setVisibility(View.GONE);

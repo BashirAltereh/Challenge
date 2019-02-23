@@ -14,11 +14,10 @@
 
             </item>
 
-            <item android:id="@+id/iv_one" android:width="40dp" android:height="40dp"
-                android:bottom="9dp" android:drawable="@drawable/ic_two"
-                android:gravity="right|center_vertical" android:left="269dp"
-                android:right="9dp" android:top="9dp">
+            <item android:width="40dp" android:height="40dp" android:drawable="@drawable/ic_two" android:gravity="right|center_vertical" android:right="10dp">
+
             </item>
+
 
         </layer-list>
 
@@ -36,10 +35,7 @@
 
             </item>
 
-            <item android:id="@+id/iv_one" android:width="50dp" android:height="50dp"
-                android:bottom="7dp" android:drawable="@drawable/ic_two"
-                android:gravity="right|center_vertical" android:left="267dp"
-                android:right="7dp" android:top="7dp">
+            <item android:width="50dp" android:height="50dp" android:drawable="@drawable/ic_two" android:gravity="right|center_vertical" android:right="10dp">
 
             </item>
         </layer-list>

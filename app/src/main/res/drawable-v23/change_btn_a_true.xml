@@ -5,28 +5,20 @@
     <!--<item android:drawable="@drawable/butun_a" />-->
 
 
-
     <item>
         <layer-list>
-            <item
-                >
+            <item>
                 <shape android:shape="rectangle">
                     <stroke android:width="0dp" android:color="#dde4d373" />
                     <corners android:radius="50dp" />
-                    <solid android:color="#00ff40"/>
+                    <solid android:color="#00ff40" />
                 </shape>
 
             </item>
 
-            <item android:id="@+id/iv_one" android:width="50dp" android:height="50dp"
-                android:bottom="7dp" android:drawable="@drawable/ic_three"
-                android:gravity="right|center_vertical" android:left="267dp"
-                android:right="7dp" android:top="7dp">
+            <item android:width="50dp" android:height="50dp" android:drawable="@drawable/ic_one" android:gravity="right|center_vertical" android:right="10dp">
 
             </item>
-
-
-
 
 
         </layer-list>
