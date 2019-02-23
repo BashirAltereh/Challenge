@@ -17,12 +17,15 @@
     <string name="email_problem">Problem in your email</string>
     <string name="downlaod_vpn">Download VPN</string>
     <string name="open_vpn">Open VPN</string>
-    <string name="bashir_altereh"><u>Bashir Altereh</u></string>
-    <string name="email"><u>bashiralterh1998@gmail.com</u></string>
-    <string name="number_phone"><u>0954226805</u></string>
+    <string name="bashir_altereh" translatable="false"><u>Bashir Altereh</u></string>
+    <string name="email" translatable="false"><u>bashiralterh1998@gmail.com</u></string>
+    <string name="number_phone" translatable="false"><u>0954226805</u></string>
     <string name="developer_information">Developer information</string>
-    <string name="name_mohammed_bashir_altereh"><fornt color="#000000"><u><b>Name:</b></u> </fornt>Mohammed Bashir Altereh</string>
+    <string name="name_mohammed_bashir_altereh" translatable="false"><fornt color="#000000"><u><b>Name:</b></u> </fornt>Mohammed Bashir Altereh</string>
     <string name="no_enogh_point">You don\'t have enough points</string>
     <string name="new_game">New game</string>
     <string name="resume">Resume</string>
+    <string name="play_offline">Play offline</string>
+    <string name="play_with_friends">Play with friends</string>
+    <string name="cancel">Cancel</string>
 </resources>

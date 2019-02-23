@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Play offline"
+                    android:text="@string/play_offline"
                     android:textColor="#1e0000"
                     android:textSize="24sp" />
 
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Play with friends"
+                    android:text="@string/play_with_friends"
                     android:textColor="#1e0000"
                     android:textSize="24sp" />
 

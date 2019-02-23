@@ -611,7 +611,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
                     onBackPressed();
                 }
             });
-            dialog.setNegativeButton("Cancel", null);
+            dialog.setNegativeButton(getString(R.string.cancel), null);
             dialog.create().show();
         }
 
