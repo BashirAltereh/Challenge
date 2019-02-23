@@ -1,318 +1,333 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/v_back"
+    android:background="@drawable/background2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/back_question"
-    android:orientation="vertical"
-    android:layoutDirection="ltr"
-
-    android:weightSum="1">
-
-    <android.support.constraint.ConstraintLayout
+    android:layout_height="match_parent">
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.48">
+        android:layout_height="match_parent"
+        android:background="#0f00eaff"
+        />
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/point_a"
-            android:text="0/200"
-            android:textSize="18sp"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:onClick="addpoint"
-            android:text="نقط"
-            android:textSize="18sp"
-            android:visibility="gone"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/khatae_a"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button6" />
-
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="gone"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/sah_a"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button7" />
-
-        <TextView
-            android:id="@+id/txtFalse"
-            android:layout_width="41dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="#050000"
-            android:textSize="18sp"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button8" />
-
-        <TextView
-            android:id="@+id/txtTrue"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:visibility="gone"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button9" />
-
-        <Button
-            android:id="@+id/btnTimer"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="140dp"
-            android:layout_marginLeft="140dp"
-            android:layout_marginEnd="140dp"
-            android:layout_marginRight="140dp"
-            android:background="@drawable/clock_a"
-            android:text="30"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="@+id/button6"
-            app:layout_constraintRight_toRightOf="@+id/button7"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
-
-        <ImageView
-            android:id="@+id/iv_sound"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_sound"
-            app:layout_constraintLeft_toLeftOf="@+id/button8"
-            app:layout_constraintRight_toRightOf="@+id/button9"
-            app:layout_constraintTop_toBottomOf="@+id/btnTimer"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
-
-        <ImageView
-            android:id="@+id/iv_hint"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTimer"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
+        android:weightSum="1">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTimer">
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.48">
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/point_a"
+                android:text="0/200"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:onClick="addpoint"
+                android:text="نقط"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/khatae_a"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button6" />
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/sah_a"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+            <TextView
+                android:id="@+id/txtFalse"
+                android:layout_width="41dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="#050000"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button8" />
+
+            <TextView
+                android:id="@+id/txtTrue"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button9" />
+
+            <Button
+                android:id="@+id/btnTimer"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="140dp"
+                android:layout_marginLeft="140dp"
+                android:layout_marginEnd="140dp"
+                android:layout_marginRight="140dp"
+                android:background="@drawable/clock_a"
+                android:text="20"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="@+id/button6"
+                app:layout_constraintRight_toRightOf="@+id/button7"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintRight_creator="1" />
 
             <ImageView
+                android:id="@+id/iv_sound"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/back_points" />
-            <TextView
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_sound"
+                app:layout_constraintLeft_toLeftOf="@+id/button8"
+                app:layout_constraintRight_toRightOf="@+id/button9"
+                app:layout_constraintTop_toBottomOf="@+id/btnTimer"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintRight_creator="1" />
+
+            <ImageView
+                android:id="@+id/iv_hint"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnTimer"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintRight_creator="1" />
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_points"
-                android:text="10"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnTimer"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/back_points" />
+
+                <TextView
+                    android:id="@+id/tv_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.48"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_question"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/question_shape"
+                android:gravity="center"
+                android:text=" من هو بشير الطرح"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1"
+
                 />
 
-        </android.support.constraint.ConstraintLayout>
-
-
-    </android.support.constraint.ConstraintLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.48"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_question"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/question_shape"
-            android:gravity="center"
-            android:text=" أول قصيدة للعفاسي ؟"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1"
-
-            />
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/btn_first_answer"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/change_btn_a"
-                android:gravity="center"
-                android:text="ايا من يدعي الفهم"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/iv_hint_1"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:src="@drawable/ic_click"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/btn_first_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/change_btn_a"
+                    android:gravity="center"
+                    android:text="مطور ويب"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/iv_hint_1"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:src="@drawable/ic_click"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1">
+            </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/btn_second_answer"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/change_btn_b"
-                android:gravity="center"
-                android:text="خلي الدكار الاربع"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/iv_hint_2"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:src="@drawable/ic_click"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/btn_second_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/change_btn_b"
+                    android:gravity="center"
+                    android:text="مطور اندرويد"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/iv_hint_2"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:src="@drawable/ic_click"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1">
+            </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/btn_third_answer"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/change_btn_c"
-                android:gravity="center"
-                android:text="ليس الغريب"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/iv_hint_3"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:src="@drawable/ic_click"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/btn_third_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/change_btn_c"
+                    android:gravity="center"
+                    android:text="ليس الغريب"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/iv_hint_3"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:src="@drawable/ic_click"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1">
+            </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/btn_fourth_answer"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/change_btn_d"
-                android:gravity="center"
-                android:text="طلع البدر علينا"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/iv_hint_4"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:src="@drawable/ic_click"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/btn_fourth_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/change_btn_d"
+                    android:gravity="center"
+                    android:text="طلع البدر علينا"
+                    android:textAllCaps="false"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        </android.support.constraint.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/iv_hint_4"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:src="@drawable/ic_click"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -20,5 +20,7 @@
     <string name="play_offline">اللعب بدون إنترنت</string>
     <string name="play_with_friends">الللعب مع الأصدقاء</string>
     <string name="cancel">إلغاء</string>
+    <string name="soon">قريباٌ</string>
+
 
 </resources>

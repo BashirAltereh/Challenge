@@ -225,7 +225,7 @@ public class UsersList extends AppCompatActivity implements View.OnClickListener
     public void onUserInviteListner(final User user) {
 //        Toast.makeText(this, "Fdsf: " + user.getName() + " , " + user.getEmail(), Toast.LENGTH_SHORT).show();
 //        Toasty.normal(this, "Coming soon").show();
-        Toasty.custom(this, "Soon", getResources().getDrawable(R.drawable.ic_wait), getResources().getColor(R.color.colorPrimary),getResources().getColor(R.color.white), Toasty.LENGTH_SHORT, true,true).show();
+        Toasty.custom(this, R.string.soon, getResources().getDrawable(R.drawable.ic_wait), getResources().getColor(R.color.colorPrimary),getResources().getColor(R.color.white), Toasty.LENGTH_SHORT, true,true).show();
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("users")

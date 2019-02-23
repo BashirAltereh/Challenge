@@ -31,6 +31,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import es.dmoral.toasty.Toasty;
 
@@ -42,6 +44,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     private TextView mBtnFistAnswer, mBtnSecondAnswer, mBtnThirdAnswer, mBtnFourthAnswer, btn6, btn7, btnTimer;
     private TextView mTvPoints;
     private ImageView mIvHintOne, mIvHintTwo, mIvHintThree, mIvHintFour, mIvHint;
+    private View mVBacks;
     String msgend;
 
     TextView txtFalse, txtTrue, mTvQuestion;
@@ -53,6 +56,8 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     MediaPlayer media_false, media_true;
     ImageView mIvSound;
 
+    private int tempCount = 0;
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -63,7 +68,9 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         init();
-        startAnimation();
+        SwitchBackground();
+//        startAnimation(1000);
+
 
         sharedPreferences = getSharedPreferences("SOUND", MODE_PRIVATE);
         sound = sharedPreferences.getBoolean("sound", true);
@@ -88,12 +95,21 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mBtnThirdAnswer = findViewById(R.id.btn_third_answer);
         mBtnFourthAnswer = findViewById(R.id.btn_fourth_answer);
 
+        mBtnFistAnswer.setVisibility(View.GONE);
+        mBtnSecondAnswer.setVisibility(View.GONE);
+        mBtnThirdAnswer.setVisibility(View.GONE);
+        mBtnFourthAnswer.setVisibility(View.GONE);
+
+        mTvQuestion.setVisibility(View.GONE);
+
         mIvHintOne = findViewById(R.id.iv_hint_1);
         mIvHintTwo = findViewById(R.id.iv_hint_2);
         mIvHintThree = findViewById(R.id.iv_hint_3);
         mIvHintFour = findViewById(R.id.iv_hint_4);
 
         mIvHint = findViewById(R.id.iv_hint);
+
+        mVBacks = findViewById(R.id.v_back);
 //        Toast.makeText(this, "po: " + Points, Toast.LENGTH_SHORT).show();
         if (Points < 2)
             mIvHint.setBackground(getResources().getDrawable(R.drawable.ic_hint_off));
@@ -126,23 +142,20 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
         mdata = new databaseClass(this);
 
-        ///////////////////////"جلب قيم من زر return  "//////
         Bundle b = getIntent().getExtras();
         boolean rtn = b.getBoolean("rtn");
 
-        //// نسخ قاعدة البينات الى البرنامج ////////////////
         File database = getApplicationContext().getDatabasePath(databaseClass.DBNAME);
         if (false == database.exists()) {
             mdata.getReadableDatabase();
             //Copy db
             if (copyDatabase(this)) {
-                Toast.makeText(this, "نسخ قاعدة البيانات", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "نسخ قاعدة البيانات", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "تعدر نسخ قاعدة البيانات", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
-        ////// جلب معلومات قاعدة الببانات الى list //////////
         mDataList = mdata.getListProduct();
         sizeData = mDataList.size();
 
@@ -153,28 +166,6 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         }
 
         timer();
-//        if (mDataList.size() <= 1) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("لقد أنهيت جميع المراحل\n انتظر الاصدار القادم \n وإلا أعد المحاولة إذا كانت أكثر اجوبتك خاطئة");
-//            builder.setPositiveButton("إعادة المحاولة", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int whichButton) {
-//                    restarteGame();
-//                }
-//            });
-//            builder.setNegativeButton("أرسل التطبيق", new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int id) {
-//                    share();
-//                }
-//            });
-//            builder.show();
-//
-//            btn6.setText(sizeData + "/" + sizeData);
-//            handler.removeCallbacks(run);
-//        } else {
-//            table();
-//            btn6.setText(txtTrue.getText().toString() + "/" + sizeData);
-//            btn7.setText("+نقط : " + point);
-//        }
 
     }
 
@@ -194,7 +185,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         if (count < 10)
             btnTimer.setTextColor(getResources().getColor(R.color.red));
         else
-            btnTimer.setTextColor(getResources().getColor(R.color.black));
+            btnTimer.setTextColor(getResources().getColor(R.color.colorPrimary));
         count--;
         if (mDataList.size() <= 1) {
             handler.removeCallbacks(run);
@@ -238,11 +229,10 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mIvHint.setEnabled(true);
 
         correctAnswer = mDataList.get(rnd).ID_answer;
-        startAnimation();
+        startAnimation(0);
         timer();
 
     }
-
 
 
     private boolean copyDatabase(Context context) {
@@ -650,7 +640,8 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
                 Toasty.custom(this, getResources().getString(R.string.no_enogh_point), getResources().getDrawable(R.drawable.ic_points), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.white), Toasty.LENGTH_SHORT, true, true).show();
         }
     }
-    public void startAnimation(){
+
+    public void startAnimation(long duration) {
         final Animation slideRight = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
         final Animation slideLeft = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
         final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.scale);
@@ -681,7 +672,39 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
                 mTvQuestion.startAnimation(slideUp);
             }
-        },0);
+        }, duration);
+
+    }
+
+    public void SwitchBackground(){
+        final int []backs = new int[]{R.drawable.background,
+                R.drawable.background1,
+                R.drawable.background2,
+                R.drawable.background3,
+                R.drawable.background4,
+                R.drawable.background5,
+                R.drawable.background6,
+                R.drawable.background7,};
+        final android.os.Handler handler = new android.os.Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d("TIMER_","SDfssdfsd");
+                if(tempCount >= backs.length)
+                    tempCount = 0;
+                mVBacks.setBackgroundResource(backs[tempCount]);
+                tempCount++;
+
+            }
+        };
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(runnable);
+
+            }
+        },100,12000);
 
     }
 }
