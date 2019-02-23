@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">التحدي</string>
+    <string name="banner_ad_unit_id">code admob Banner</string>
+    <string name="exit_con">متأكد من الخروج</string>
+    <string name="exit">خروج</string>
+    <string name="request_email">"حصلت مشكلة الرجاء إدخال بريدك الإلكتروني "</string>
+    <string name="ok">موافق</string>
+    <string name="not_valid_email">الرجاء إدخال بريد إلكتروني صالح</string>
+    <string name="users">الأشخاص الذي تستطيع اللعب معهن</string>
+    <string name="sign_in_successfully">تم تسجيل الدخول بنجاح</string>
+    <string name="deos_not_sign_in">لم يتم تسجيل الدخول</string>
+    <string name="need_vpn">ربما تعيش في سورية لذلك تحتاج VPN</string>
+    <string name="downlaod_vpn">تحميل VPN</string>
+    <string name="open_vpn">فتح VPN</string>
+    <string name="developer_information">معلومات المطور</string>
+    <string name="no_enogh_point">لا تملك نقاط كافية</string>
+    <string name="new_game">لعبة جديدة</string>
+    <string name="resume">متابعة اللعبة</string>
+    <string name="play_offline">اللعب بدون إنترنت</string>
+    <string name="play_with_friends">الللعب مع الأصدقاء</string>
+    <string name="cancel">إلغاء</string>
+    <string name="soon">قريباٌ</string>
+
+
+</resources>
