@@ -64,6 +64,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         init();
+        startAnimation();
 
         sharedPreferences = getSharedPreferences("SOUND", MODE_PRIVATE);
         sound = sharedPreferences.getBoolean("sound", true);
@@ -238,6 +239,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mIvHint.setEnabled(true);
 
         correctAnswer = mDataList.get(rnd).ID_answer;
+        startAnimation();
         timer();
 
     }
@@ -648,5 +650,39 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
             } else
                 Toasty.custom(this, getResources().getString(R.string.no_enogh_point), getResources().getDrawable(R.drawable.ic_points), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.white), Toasty.LENGTH_SHORT, true, true).show();
         }
+    }
+    public void startAnimation(){
+        final Animation slideRight = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
+        final Animation slideLeft = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
+        final Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.scale);
+        slideUp.setDuration(700);
+        mBtnFistAnswer.setVisibility(View.GONE);
+        mBtnSecondAnswer.setVisibility(View.GONE);
+        mBtnThirdAnswer.setVisibility(View.GONE);
+        mBtnFourthAnswer.setVisibility(View.GONE);
+
+        mTvQuestion.setVisibility(View.GONE);
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mBtnFistAnswer.setVisibility(View.VISIBLE);
+                mBtnSecondAnswer.setVisibility(View.VISIBLE);
+                mBtnThirdAnswer.setVisibility(View.VISIBLE);
+                mBtnFourthAnswer.setVisibility(View.VISIBLE);
+
+                mTvQuestion.setVisibility(View.VISIBLE);
+
+                mBtnFistAnswer.startAnimation(slideRight);
+                mBtnSecondAnswer.startAnimation(slideLeft);
+                mBtnThirdAnswer.startAnimation(slideRight);
+                mBtnFourthAnswer.startAnimation(slideLeft);
+
+                mTvQuestion.startAnimation(slideUp);
+            }
+        },0);
+
     }
 }
