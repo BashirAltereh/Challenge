@@ -52,6 +52,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     static Random rand = new Random(); // static li 3adam tikrar ra9m
     int rnd, id, sizeData, count = 20, correctAnswer;
     private boolean sound;
+    private boolean firstQuestion = true;
     Handler handler = new Handler();
     MediaPlayer media_false, media_true;
     ImageView mIvSound;
@@ -67,8 +68,8 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        init();
         SwitchBackground();
+        init();
 //        startAnimation(1000);
 
 
@@ -95,12 +96,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mBtnThirdAnswer = findViewById(R.id.btn_third_answer);
         mBtnFourthAnswer = findViewById(R.id.btn_fourth_answer);
 
-        mBtnFistAnswer.setVisibility(View.GONE);
-        mBtnSecondAnswer.setVisibility(View.GONE);
-        mBtnThirdAnswer.setVisibility(View.GONE);
-        mBtnFourthAnswer.setVisibility(View.GONE);
 
-        mTvQuestion.setVisibility(View.GONE);
 
         mIvHintOne = findViewById(R.id.iv_hint_1);
         mIvHintTwo = findViewById(R.id.iv_hint_2);
@@ -229,7 +225,11 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
         mIvHint.setEnabled(true);
 
         correctAnswer = mDataList.get(rnd).ID_answer;
-        startAnimation(0);
+        if(!firstQuestion) {
+            startAnimation(0);
+        }
+        firstQuestion = false;
+
         timer();
 
     }
@@ -677,6 +677,7 @@ public class windows_asila extends AppCompatActivity implements View.OnClickList
     }
 
     public void SwitchBackground(){
+        mVBacks = findViewById(R.id.v_back);
         final int []backs = new int[]{R.drawable.background,
                 R.drawable.background1,
                 R.drawable.background2,
