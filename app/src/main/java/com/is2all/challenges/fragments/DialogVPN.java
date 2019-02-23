@@ -2,6 +2,7 @@ package com.is2all.challenges.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -27,6 +29,17 @@ public class DialogVPN extends DialogFragment {
 
     public DialogVPN(Activity activity) {
         this.activity = activity;
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        // request a window without the title
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
+
+        return dialog;
     }
 
     @Nullable
@@ -57,7 +70,7 @@ public class DialogVPN extends DialogFragment {
                     try {
                         Intent launchApplication = getActivity().getPackageManager().getLaunchIntentForPackage(appPackageName1);
                         startActivity(launchApplication);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         Intent launchApplication = getActivity().getPackageManager().getLaunchIntentForPackage(appPackageName2);
                         startActivity(launchApplication);
                     }

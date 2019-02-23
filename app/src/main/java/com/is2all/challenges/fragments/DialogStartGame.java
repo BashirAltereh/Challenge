@@ -2,6 +2,7 @@ package com.is2all.challenges.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.Window;
 
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
@@ -32,6 +33,16 @@ public class DialogStartGame extends DialogFragment {
         this.onStartGame = onStartGame;
     }
 
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        // request a window without the title
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
+
+        return dialog;
+    }
 
     @Nullable
     @Override
@@ -55,8 +66,7 @@ public class DialogStartGame extends DialogFragment {
         });
 
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
-        getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         return view;
 
     }

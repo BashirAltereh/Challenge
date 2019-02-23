@@ -1,6 +1,7 @@
 package com.is2all.challenges.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -31,6 +33,17 @@ public class DialogInfo extends DialogFragment implements View.OnClickListener {
     public DialogInfo(Context context, OnNeedCommunicate onNeedCommunicate) {
         this.context = context;
         this.onNeedCommunicate = onNeedCommunicate;
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        // request a window without the title
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
+
+        return dialog;
     }
 
     @Nullable
