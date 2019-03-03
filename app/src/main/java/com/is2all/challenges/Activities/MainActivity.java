@@ -1,6 +1,10 @@
 package com.is2all.challenges.Activities;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -20,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -50,6 +55,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.is2all.challenges.Dialogs.DialogEmail;
+import com.is2all.challenges.Dialogs.DialogInfo;
+import com.is2all.challenges.Dialogs.DialogStartGame;
+import com.is2all.challenges.Dialogs.DialogTimePicker;
+import com.is2all.challenges.Dialogs.DialogVPN;
 import com.is2all.challenges.Helper.CommunicationType;
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
@@ -57,10 +67,7 @@ import com.is2all.challenges.OnGetEmail;
 import com.is2all.challenges.OnNeedCommunicate;
 import com.is2all.challenges.OnStartGame;
 import com.is2all.challenges.R;
-import com.is2all.challenges.fragments.DialogEmail;
-import com.is2all.challenges.fragments.DialogInfo;
-import com.is2all.challenges.fragments.DialogVPN;
-import com.is2all.challenges.fragments.DialogStartGame;
+import com.is2all.challenges.Services.AlarmReceiver;
 import com.is2all.challenges.models.User;
 
 import org.json.JSONException;
@@ -69,6 +76,7 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -77,12 +85,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity__";
     private static final String EMAIL = "email";
     private static final String USER_FIREDS = "user_friends";
+    final static int RQS_1 = 1;
     private String name, email;
     private String ID, userID;
     private boolean isLoggedIn;
 
+
     private View mVPlayOffline, mVPlayWithFirends, mView;
-    private ImageView mIvLOGO, mIvClick, mIvInfo;
+    private ImageView mIvLOGO, mIvClick, mIvInfo,mIvALarmClock;
     private LoginButton mBtnLogIn;
     private FirebaseAuth mAuth;
     private CallbackManager callbackManager;
@@ -97,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DialogEmail dialogEmail;
     private DialogVPN dialogVPN;
     private DialogInfo dialogInfo;
+
+    private DialogTimePicker timePickerDialog;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -202,8 +214,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isLoggedIn = accessToken != null && !accessToken.isExpired();
 
 //        getUsers();
-
-
     }
 
     public void init() {
@@ -220,11 +230,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mIvLOGO = findViewById(R.id.iv_logo);
         mIvClick = findViewById(R.id.iv_click);
         mIvInfo = findViewById(R.id.iv_info);
+        mIvALarmClock = findViewById(R.id.iv_alarm);
+
 
         mIvInfo.setOnClickListener(this);
+        mIvALarmClock.setOnClickListener(this);
         mBtnLogIn.setOnClickListener(this);
         mVPlayOffline.setOnClickListener(this);
         mVPlayWithFirends.setOnClickListener(this);
+
 
         // Write a message to the database
         accessToken = AccessToken.getCurrentAccessToken();
@@ -426,6 +440,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.iv_info:
                 dialogInfo = new DialogInfo(this, this);
                 dialogInfo.show(getSupportFragmentManager(), TAG);
+                break;
+
+            case R.id.iv_alarm:
+                openTimePickerDialog(false);
+
                 break;
         }
     }
@@ -946,4 +965,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+    private void openTimePickerDialog(boolean is24r) {
+        Calendar calendar = Calendar.getInstance();
+
+        timePickerDialog = new DialogTimePicker(MainActivity.this,
+                onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), is24r);
+        timePickerDialog.setTitle("Set Alarm Time");
+
+        timePickerDialog.show();
+
+    }
+
+    TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            Calendar calNow = Calendar.getInstance();
+            Calendar calSet = (Calendar) calNow.clone();
+
+            calSet.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calSet.set(Calendar.MINUTE, minute);
+            calSet.set(Calendar.SECOND, 0);
+            calSet.set(Calendar.MILLISECOND, 0);
+
+            if (calSet.compareTo(calNow) <= 0) {
+                // Today Set time passed, count to tomorrow
+                calSet.add(Calendar.DATE, 1);
+            }
+
+            setAlarm(calSet);
+        }
+    };
+
+    private void setAlarm(Calendar targetCal) {
+
+//        textAlarmPrompt.setText("\n\n***\n" + "Alarm is set "
+//                + targetCal.getTime() + "\n" + "***\n");
+
+        Intent intent = new Intent(getBaseContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getBaseContext(), RQS_1, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),
+                pendingIntent);
+
+
+    }
+
 }

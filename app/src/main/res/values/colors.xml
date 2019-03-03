@@ -11,5 +11,6 @@
     <color name="blue">#c24ed1d1</color>
     <color name="blue_link">#0051ff</color>
     <color name="hover_color">#75000000</color>
+    <color name="blue_pressed">#4ed1d1</color>
 
 </resources>

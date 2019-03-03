@@ -4,12 +4,16 @@
        android:state_pressed="true"
 
        >
-       <shape>
+       <shape
+           android:shape="oval"
+           >
            <solid
-               android:color="#ba262626"
+               android:color="#39262626"
                />
-           <corners
-               android:radius="0dp"
+
+           <size
+               android:height="120dp"
+               android:width="120dp"
                />
        </shape>
    </item>

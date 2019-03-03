@@ -75,6 +75,8 @@
         app:roundingBorderWidth="3dp"
         app:roundingBorderColor="@color/white"
         app:placeholderImage="@drawable/ic_user"
+        android:foreground="@drawable/back_user_icon"
+
 
         />
 </android.support.constraint.ConstraintLayout>

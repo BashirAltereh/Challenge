@@ -1,4 +1,4 @@
-package com.is2all.challenges.fragments;
+package com.is2all.challenges.Dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

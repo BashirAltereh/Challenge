@@ -32,7 +32,7 @@ import com.is2all.challenges.Helper.ViewMode;
 import com.is2all.challenges.OnInviteListener;
 import com.is2all.challenges.R;
 import com.is2all.challenges.adapters.UserAdapter;
-import com.is2all.challenges.fragments.DialogVPN;
+import com.is2all.challenges.Dialogs.DialogVPN;
 import com.is2all.challenges.models.User;
 
 import java.io.IOException;

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -78,6 +79,7 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String id = user.getId();
             final String url = "https://graph.facebook.com/" + id + "/picture?type=large";  //API form facebook to get user's photo
 //            Picasso.get().load(url).error(R.drawable.ic_profile_male).into(mIvUserPhoto);
+            Log.d("URL_","url : "+url);
             mIvUserPhoto.setImageURI(url);
 
             mIvUserPhoto.setOnHoverListener(new View.OnHoverListener() {

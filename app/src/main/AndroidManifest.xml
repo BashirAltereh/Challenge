@@ -3,20 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.is2all.challenges">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/question"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
@@ -66,9 +66,8 @@
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            tools:replace="android:value"
-
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -86,9 +85,13 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.UsersList"
-            android:screenOrientation="portrait"
-            ></activity>
+        <activity
+            android:name=".Activities.UsersList"
+            android:screenOrientation="portrait" />
+
+        <receiver
+            android:name=".Services.AlarmReceiver"
+            android:process=":remote" />
     </application>
 
 </manifest>

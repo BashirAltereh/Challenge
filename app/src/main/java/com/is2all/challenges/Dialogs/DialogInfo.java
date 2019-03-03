@@ -1,4 +1,4 @@
-package com.is2all.challenges.fragments;
+package com.is2all.challenges.Dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -25,6 +26,7 @@ import com.is2all.challenges.models.Dimention;
 public class DialogInfo extends DialogFragment implements View.OnClickListener {
     private TextView mTvPhone, mTvEmail, mTvFacebook;
     private SimpleDraweeView mIvMyPhoto;
+    private FrameLayout mVHover;
     private OnNeedCommunicate onNeedCommunicate;
     private Context context;
     private View mVData;
@@ -46,6 +48,7 @@ public class DialogInfo extends DialogFragment implements View.OnClickListener {
         return dialog;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,11 +59,14 @@ public class DialogInfo extends DialogFragment implements View.OnClickListener {
         mTvEmail = view.findViewById(R.id.tv_email);
         mTvFacebook = view.findViewById(R.id.tv_facebook);
         mIvMyPhoto = view.findViewById(R.id.iv_dev);
+        mVHover = view.findViewById(R.id.v_hover);
         mVData = view.findViewById(R.id.v_data);
 
+        mVHover.setOnClickListener(this);
         mTvPhone.setOnClickListener(this);
         mTvEmail.setOnClickListener(this);
         mTvFacebook.setOnClickListener(this);
+        mIvMyPhoto.setOnClickListener(this);
 
 
         return view;
@@ -84,6 +90,8 @@ public class DialogInfo extends DialogFragment implements View.OnClickListener {
         layoutParams.width = dimention.getWidth() / 3;
         layoutParams.height = (int) (dimention.getHeight() / 4.2);
         mIvMyPhoto.setLayoutParams(layoutParams);
+
+//        mVHover.setLayoutParams(layoutParams);
 
     }
 
