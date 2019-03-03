@@ -8,7 +8,7 @@
     android:background="@drawable/back_question"
     android:layoutDirection="ltr"
 
-    tools:context="com.is2all.challenges.Activities.windows_asila">
+    tools:context="com.is2all.challenges.Activities.QuestionsActivity">
 
     <ImageView
         android:layout_width="35dp"

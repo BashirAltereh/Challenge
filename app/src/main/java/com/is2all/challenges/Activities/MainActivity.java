@@ -60,6 +60,7 @@ import com.is2all.challenges.Dialogs.DialogInfo;
 import com.is2all.challenges.Dialogs.DialogStartGame;
 import com.is2all.challenges.Dialogs.DialogTimePicker;
 import com.is2all.challenges.Dialogs.DialogVPN;
+import com.is2all.challenges.Helper.AppConstants;
 import com.is2all.challenges.Helper.CommunicationType;
 import com.is2all.challenges.Helper.GAME;
 import com.is2all.challenges.Helper.Utils;
@@ -83,8 +84,8 @@ import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnStartGame, OnGetEmail, OnNeedCommunicate {
     private static final String TAG = "MainActivity__";
-    private static final String EMAIL = "email";
-    private static final String USER_FIREDS = "user_friends";
+
+
     final static int RQS_1 = 1;
     private String name, email;
     private String ID, userID;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private View mVPlayOffline, mVPlayWithFirends, mView;
-    private ImageView mIvLOGO, mIvClick, mIvInfo,mIvALarmClock;
+    private ImageView mIvLOGO, mIvClick, mIvInfo, mIvALarmClock;
     private LoginButton mBtnLogIn;
     private FirebaseAuth mAuth;
     private CallbackManager callbackManager;
@@ -212,7 +213,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         isLoggedIn = accessToken != null && !accessToken.isExpired();
-
 //        getUsers();
     }
 
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         callbackManager = CallbackManager.Factory.create();
-        mBtnLogIn.setReadPermissions(EMAIL/*, "public_profile", "user_friends"*/);
+        mBtnLogIn.setReadPermissions(AppConstants.EMAIL/*, "public_profile", "user_friends"*/);
 
     }
 
@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MediaPlayer media2 = MediaPlayer.create(this, R.raw.sound_click);
         media2.start();
 
-        Intent windows_asila = new Intent(this, com.is2all.challenges.Activities.windows_asila.class);
+        Intent windows_asila = new Intent(this, QuestionsActivity.class);
         windows_asila.putExtra("rtn", true);
         startActivity(windows_asila);
     }
@@ -872,7 +872,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             MediaPlayer media2 = MediaPlayer.create(this, R.raw.sound_click);
             media2.start();
 
-            Intent windows_asila = new Intent(this, windows_asila.class);
+            Intent windows_asila = new Intent(this, QuestionsActivity.class);
             windows_asila.putExtra("rtn", false);
             startActivity(windows_asila);
             framgent.dismiss();
@@ -882,7 +882,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             MediaPlayer media2 = MediaPlayer.create(this, R.raw.sound_click);
             media2.start();
 
-            Intent windows_asila = new Intent(this, windows_asila.class);
+            Intent windows_asila = new Intent(this, QuestionsActivity.class);
             windows_asila.putExtra("rtn", true);
             startActivity(windows_asila);
             framgent.dismiss();
@@ -938,28 +938,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dialogInfo.dismiss();
                 try {
                     startActivity(intent);
+                } catch (Exception e) {
+                    Toasty.error(this, "Error: " + e.getMessage()).show();
                 }
-                catch (Exception e){
-                    Toasty.error(this,"Error: "+e.getMessage()).show();
-                }                break;
+                break;
             case FACEBOOK:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/profile.php?id=100003729378979"));
                 dialogInfo.dismiss();
                 try {
                     startActivity(intent);
+                } catch (Exception e) {
+                    Toasty.error(this, "Error: " + e.getMessage()).show();
                 }
-                catch (Exception e){
-                    Toasty.error(this,"Error: "+e.getMessage()).show();
-                }                break;
+                break;
             case PHONE_NUMBER:
                 intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:0954226805"));
                 dialogInfo.dismiss();
                 try {
                     startActivity(intent);
-                }
-                catch (Exception e){
-                    Toasty.error(this,"Error: "+e.getMessage()).show();
+                } catch (Exception e) {
+                    Toasty.error(this, "Error: " + e.getMessage()).show();
                 }
                 break;
         }
@@ -1012,7 +1011,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),
                 pendingIntent);
 
-
     }
+
 
 }

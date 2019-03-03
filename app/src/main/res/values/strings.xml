@@ -44,5 +44,6 @@
 
     <string name="action_share">Share</string>
     <string name="action_reply">Reply</string>
+    <string name="do_want_play">Do want to play</string>
 
 </resources>

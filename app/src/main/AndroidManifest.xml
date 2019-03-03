@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.windows_asila"
+            android:name=".Activities.QuestionsActivity"
             android:screenOrientation="portrait" />
 
         <!-- these for firebase -->

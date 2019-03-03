@@ -36,7 +36,7 @@ import java.util.TimerTask;
 
 import es.dmoral.toasty.Toasty;
 
-public class windows_asila extends AppCompatActivity implements View.OnClickListener {
+public class QuestionsActivity extends AppCompatActivity implements View.OnClickListener {
     private SharedPreferences sharedPreferences, sharedPreferencesUser;
     private List<item> mDataList;
     private databaseClass mdata;
