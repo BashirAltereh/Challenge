@@ -97,7 +97,6 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         mBtnFourthAnswer = findViewById(R.id.btn_fourth_answer);
 
 
-
         mIvHintOne = findViewById(R.id.iv_hint_1);
         mIvHintTwo = findViewById(R.id.iv_hint_2);
         mIvHintThree = findViewById(R.id.iv_hint_3);
@@ -139,7 +138,14 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         mdata = new databaseClass(this);
 
         Bundle b = getIntent().getExtras();
-        boolean rtn = b.getBoolean("rtn");
+        boolean rtn;
+        try {
+            rtn = b.getBoolean("rtn");
+//            Toast.makeText(this,"rte",Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            rtn = true;
+//            Toast.makeText(this,"catchv,flfvfll",Toast.LENGTH_SHORT).show();
+        }
 
         File database = getApplicationContext().getDatabasePath(databaseClass.DBNAME);
         if (false == database.exists()) {
@@ -225,7 +231,7 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         mIvHint.setEnabled(true);
 
         correctAnswer = mDataList.get(rnd).ID_answer;
-        if(!firstQuestion) {
+        if (!firstQuestion) {
             startAnimation(0);
         }
         firstQuestion = false;
@@ -676,9 +682,9 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void SwitchBackground(){
+    public void SwitchBackground() {
         mVBacks = findViewById(R.id.v_back);
-        final int []backs = new int[]{R.drawable.background,
+        final int[] backs = new int[]{R.drawable.background,
                 R.drawable.background1,
                 R.drawable.background2,
                 R.drawable.background3,
@@ -690,8 +696,8 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Log.d("TIMER_","SDfssdfsd");
-                if(tempCount >= backs.length)
+                Log.d("TIMER_", "SDfssdfsd");
+                if (tempCount >= backs.length)
                     tempCount = 0;
                 mVBacks.setBackgroundResource(backs[tempCount]);
                 tempCount++;
@@ -705,7 +711,7 @@ public class QuestionsActivity extends AppCompatActivity implements View.OnClick
                 handler.post(runnable);
 
             }
-        },100,12000);
+        }, 100, 12000);
 
     }
 }

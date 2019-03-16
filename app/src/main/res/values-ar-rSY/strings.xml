@@ -23,5 +23,8 @@
     <string name="soon">قريباٌ</string>
 
     <string name="do_want_play">هل تريد اللعب</string>
+    <string name="check_your_connection">تححق من الإتصال بالنت</string>
+    <string name="success">تم بنجاح</string>
+
 
 </resources>

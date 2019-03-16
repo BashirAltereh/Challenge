@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -49,7 +51,11 @@ dependencies {
     //    implementation 'com.google.firebase:firebase-auth:16.0.1'
     testImplementation 'junit:junit:4.12'
     implementation files('libs/library-1.0.19.jar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    mavenCentral()
+}

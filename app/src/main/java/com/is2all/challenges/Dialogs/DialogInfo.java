@@ -66,7 +66,7 @@ public class DialogInfo extends DialogFragment implements View.OnClickListener {
         mTvPhone.setOnClickListener(this);
         mTvEmail.setOnClickListener(this);
         mTvFacebook.setOnClickListener(this);
-        mIvMyPhoto.setOnClickListener(this);
+//        mIvMyPhoto.setOnClickListener(this);
 
 
         return view;

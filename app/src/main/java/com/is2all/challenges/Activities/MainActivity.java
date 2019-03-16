@@ -156,7 +156,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onError(FacebookException exception) {
                 // App code
                 Log.d("Result_", "onError: " + exception.getMessage());
-                Toast.makeText(getApplicationContext(), "onError: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                Toasty.error(getApplicationContext(), "check your connection").show();
+
 
             }
         });
@@ -171,10 +172,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toasty.success(getApplicationContext(), getString(R.string.sign_in_successfully), Toast.LENGTH_SHORT, true).show();
                     editor.putBoolean("isSignIn", true);
                     editor.commit();
-                } else if (!isSignIn)
+                } else if (!isSignIn) {
 //                    Toast.makeText(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT).show();
-                    Toasty.warning(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT, true).show();
-
+//                    Toasty.warning(getApplicationContext(), getString(R.string.deos_not_sign_in), Toast.LENGTH_SHORT, true).show();
+                }
             }
         };
 
@@ -185,7 +186,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         Log.d("Result_", "onSuccess1: " + loginResult.toString());
-                        Toast.makeText(getApplicationContext(), "onSuccess: " + loginResult.toString(), Toast.LENGTH_SHORT).show();
+                        Toasty.success(getApplicationContext(), R.string.success).show();
+//                        Toast.makeText(getApplicationContext(), "onSuccess: " + loginResult.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),getString(R.string.wait_to_sign_in),Toast.LENGTH_SHORT).show();
                         handleFacebookAccessToken(loginResult.getAccessToken());
 
                     }
@@ -202,7 +205,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onError(FacebookException exception) {
                         // App code
                         Log.d("Result_", "onError: " + exception.getMessage());
-                        Toast.makeText(getApplicationContext(), "onError: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Toasty.error(getApplicationContext(), R.string.check_your_connection).show();
+                        Toast.makeText(getApplicationContext(), R.string.check_your_connection,Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -410,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.v_play_with_friends:
                 if (!arePlayServicesOk()) {
-                    Toast.makeText(this, "arePlayServices not Ok", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "PlayServices not Ok", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (isAnonymous()) {
@@ -620,7 +624,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             e.printStackTrace();
                         }
                         Log.d("INFO_", "user: " + Utils.convertToJSon(new User(email, name, userID, "")));
-                        Toast.makeText(getApplicationContext(), "user: " + Utils.convertToJSon(new User(email, name, userID, "")), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "user: " + Utils.convertToJSon(new User(email, name, userID, "")), Toast.LENGTH_LONG).show();
                         editor.putString("user", Utils.convertToJSon(new User(email, name, userID, "")));
                         editor.commit();
 
